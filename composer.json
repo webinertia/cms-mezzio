@@ -60,7 +60,7 @@
     },
     "require-dev": {
         "laminas/laminas-development-mode": "^3.3.0",
-        "phpunit/phpunit": "^9.5.11",
+        "phpunit/phpunit": "^10.0.0",
         "mezzio/mezzio-tooling": "^2.8",
         "roave/security-advisories": "dev-master",
         "filp/whoops": "^2.7.1"
