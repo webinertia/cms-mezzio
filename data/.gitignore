@@ -1,0 +1,9 @@
+*
+!cache
+!cache/.gitkeep
+!app
+!app/.gitkeep
+!app/settings
+!app/settings/.gitkeep
+!app/settings/themes.php
+!.gitignore
