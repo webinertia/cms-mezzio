@@ -56,11 +56,12 @@
         "mezzio/mezzio-laminasviewrenderer": "^2.12"
     },
     "require-dev": {
+        "filp/whoops": "^2.7.1",
         "laminas/laminas-development-mode": "^3.3.0",
-        "phpunit/phpunit": "^9.5.11",
         "mezzio/mezzio-tooling": "^2.8",
-        "roave/security-advisories": "dev-master",
-        "filp/whoops": "^2.7.1"
+        "php-middleware/php-debug-bar": "^4.2",
+        "phpunit/phpunit": "^9.5.11",
+        "roave/security-advisories": "dev-master"
     },
     "autoload": {
         "psr-4": {

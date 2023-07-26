@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ThemeManager;
 
 use Mezzio\LaminasView\LaminasViewRenderer;
+use Tuupola\Middleware\ServerTimingMiddleware;
 
 /**
  * The configuration provider for the ThemeManager module
@@ -34,6 +35,7 @@ class ConfigProvider
     {
         return [
             'invokables' => [
+                ServerTimingMiddleware::class,
             ],
             // 'aliases' => [
             //     LaminasViewRenderer::class => Renderer::class,
