@@ -14,6 +14,7 @@ $cacheConfig = [
 ];
 
 $aggregator = new ConfigAggregator([
+    \PageManager\ConfigProvider::class,
     \Laminas\Hydrator\ConfigProvider::class,
     \Laminas\Db\ConfigProvider::class,
     \PhpMiddleware\PhpDebugBar\ConfigProvider::class,
