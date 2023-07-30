@@ -37,11 +37,6 @@ class ConfigProvider
             'factories'  => [
                Handler\PageHandler::class => Handler\PageHandlerFactory::class,
             ],
-            // 'delegators' => [
-            //     Application::class => [
-            //         ApplicationConfigInjectionDelegator::class,
-            //     ],
-            // ],
         ];
     }
 

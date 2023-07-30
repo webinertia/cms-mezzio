@@ -56,6 +56,7 @@
         "mezzio/mezzio-fastroute": "^3.0.3",
         "mezzio/mezzio-helpers": "^5.7",
         "mezzio/mezzio-laminasviewrenderer": "^2.12",
+        "mikemix/tactician-module": "^3.2",
         "webinertia/webinertia-db": "^0.0.6",
         "webinertia/webinertia-utils": "^0.0.10"
     },
