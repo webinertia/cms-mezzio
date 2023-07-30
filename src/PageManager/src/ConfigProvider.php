@@ -37,17 +37,23 @@ class ConfigProvider
             'factories'  => [
                Handler\PageHandler::class => Handler\PageHandlerFactory::class,
             ],
-            'delegators' => [
-                Application::class => [
-                    ApplicationConfigInjectionDelegator::class,
-                ],
-            ],
+            // 'delegators' => [
+            //     Application::class => [
+            //         ApplicationConfigInjectionDelegator::class,
+            //     ],
+            // ],
         ];
     }
 
     public function getRoutes(): array
     {
         return [
+            [
+                'path'            => '/',
+                'name'            => 'home',
+                'middleware'      => Handler\PageHandler::class,
+                'allowed_methods' => ['GET'],
+            ],
             [
                 'path'            => '/{title:[a-zA-Z]+}',
                 'name'            => 'page',

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PageManager\Handler;
 
+use DebugBar\DebugBar;
 use Mezzio\Router\RouterInterface;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Container\ContainerInterface;
@@ -23,6 +24,8 @@ class PageHandlerFactory
             : null;
         assert($template instanceof TemplateRendererInterface || null === $template);
 
-        return new PageHandler($container::class, $router, $template);
+        $debug = $container->get(DebugBar::class);
+
+        return new PageHandler($template, $debug);
     }
 }

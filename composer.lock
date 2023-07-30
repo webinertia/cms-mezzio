@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b40ca745af5e7b4ba8027c24315cf653",
+    "content-hash": "f8b9ad07b1c0b3fb408669981e98b60c",
     "packages": [
         {
             "name": "brick/varexporter",
@@ -2120,6 +2120,55 @@
                 "wiki": "https://github.com/webinertia/webinertia-db/wiki"
             },
             "time": "2023-07-18T04:26:45+00:00"
+        },
+        {
+            "name": "webinertia/webinertia-utils",
+            "version": "0.0.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webinertia/utils.git",
+                "reference": "21b56d45eecebe32dd5924129d5e54dfbc297150"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webinertia/utils/zipball/21b56d45eecebe32dd5924129d5e54dfbc297150",
+                "reference": "21b56d45eecebe32dd5924129d5e54dfbc297150",
+                "shasum": ""
+            },
+            "require": {
+                "laminas/laminas-component-installer": "^3.2.0",
+                "laminas/laminas-servicemanager": "^3.20.0",
+                "php": "~8.1.0 || ~8.2.0"
+            },
+            "type": "library",
+            "extra": {
+                "laminas": {
+                    "component": "Webinertia\\Utils",
+                    "config-provider": "Webinertia\\Utils\\ConfigProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Webinertia\\Utils\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Webinertia Org Utilities",
+            "homepage": "https://github.com/webinertia",
+            "keywords": [
+                "utils",
+                "webinertia"
+            ],
+            "support": {
+                "chat": "https://github.com/webinertia/modelmanager/discussions",
+                "docs": "https://github.com/webinertia/modelmanager/wiki",
+                "issues": "https://github.com/webinertia/modelmanager/issues",
+                "source": "https://github.com/webinertia/modelmanager"
+            },
+            "time": "2023-04-25T01:17:36+00:00"
         },
         {
             "name": "webmozart/assert",

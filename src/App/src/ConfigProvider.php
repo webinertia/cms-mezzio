@@ -38,9 +38,6 @@ class ConfigProvider
             'invokables' => [
                 Handler\PingHandler::class => Handler\PingHandler::class,
             ],
-            'factories'  => [
-                Handler\HomePageHandler::class => Handler\HomePageHandlerFactory::class,
-            ],
             'delegators' => [
                 Application::class => [
                     ApplicationConfigInjectionDelegator::class,
@@ -66,12 +63,6 @@ class ConfigProvider
     public function getRoutes(): array
     {
         return [
-            [
-                'path'            => '/',
-                'name'            => 'home',
-                'middleware'      => Handler\HomePageHandler::class,
-                'allowed_methods' => ['GET'],
-            ],
             [
                 'path'            => '/api/ping',
                 'name'            => 'api.ping',
