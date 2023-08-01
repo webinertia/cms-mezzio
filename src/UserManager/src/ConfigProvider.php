@@ -4,6 +4,15 @@ declare(strict_types=1);
 
 namespace UserManager;
 
+use League\Tactician\Middleware;
+use Mezzio\Authentication\AuthenticationInterface;
+use Mezzio\Authentication\AuthenticationMiddleware;
+use Mezzio\Authentication\UserInterface;
+use Mezzio\Authentication\Session\PhpSession;
+use Mezzio\Authentication\UserRepositoryInterface;
+use Mezzio\Session\SessionMiddleware;
+use UserManager\Form;
+
 /**
  * The configuration provider for the UserManager module
  *
@@ -20,8 +29,11 @@ class ConfigProvider
     public function __invoke() : array
     {
         return [
-            'dependencies' => $this->getDependencies(),
-            'templates'    => $this->getTemplates(),
+            'dependencies'   => $this->getDependencies(),
+            'templates'      => $this->getTemplates(),
+            'authentication' => $this->getAuthConfig(),
+            'routes'         => $this->getRoutes(),
+            'form_elements'  => $this->getFormElementConfig(),
         ];
     }
 
@@ -31,13 +43,80 @@ class ConfigProvider
     public function getDependencies() : array
     {
         return [
+            'aliases'    => [
+                AuthenticationInterface::class => PhpSession::class,
+                UserRepositoryInterface::class => UserRepository::class,
+            ],
             'invokables' => [
             ],
             'factories'  => [
+                Authentication\CurrentUser::class => Authentication\CurrentUserFactory::class,
+                Handler\LoginHandler::class       => Handler\LoginHandlerFactory::class,
+                Handler\LogoutHandler::class      => Handler\LogoutHandlerFactory::class,
+                Handler\ProfileHandler::class     => Handler\ProfileHandlerFactory::class,
+                Middleware\IdentityMiddleware::class => Middleware\IdentityMiddlewareFactory::class,
+                UserRepository::class             => UserRepositoryFactory::class,
+                UserInterface::class              => Authentication\CurrentUserFactory::class,
+            ],
+            'delegators' => [
+
             ],
         ];
     }
 
+    public function getAuthConfig(): array
+    {
+        return [
+            'username' => 'userName',
+            'password' => 'password',
+            'details'  => [
+                'email', 'firstName', 'lastName', 'birthday'
+            ],
+            'redirect' => '/user/login',
+        ];
+    }
+
+    public function getRoutes(): array
+    {
+        return [
+            [
+                'path' => '/user/login',
+                'name' => 'user.login',
+                'middleware' => [
+                    Handler\LoginHandler::class,
+                ],
+                'allowed_methods' => ['GET', 'POST'],
+            ],
+            [
+                'path' => '/user/profile[/{userName:[a-zA-Z]+}]',
+                'name' => 'user.profile',
+                'middleware' => [
+                    AuthenticationMiddleware::class,
+                    Handler\ProfileHandler::class,
+                ],
+                'allowed_methods' => ['GET'],
+            ],
+            [
+                'path' => '/user/logout',
+                'name' => 'user.logout',
+                'middleware' => [
+                    AuthenticationMiddleware::class,
+                    Handler\LogoutHandler::class,
+                ],
+                'allowed_methods' => ['GET'],
+            ],
+        ];
+    }
+
+    public function getFormElementConfig(): array
+    {
+        return [
+            'factories' => [
+                Form\Login::class                  => Form\LoginFactory::class,
+                Form\Fieldset\LoginFieldset::class => Form\Fieldset\LoginFieldsetFactory::class,
+            ],
+        ];
+    }
     /**
      * Returns the templates configuration
      */
@@ -45,7 +124,7 @@ class ConfigProvider
     {
         return [
             'paths' => [
-                'user-manager'    => [__DIR__ . '/../templates/'],
+                'user-manager'    => [__DIR__ . '/../templates/user-manager'],
             ],
         ];
     }

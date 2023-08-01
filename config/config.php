@@ -14,6 +14,22 @@ $cacheConfig = [
 ];
 
 $aggregator = new ConfigAggregator([
+    \Limatus\ConfigProvider::class,
+    \Laminas\Navigation\ConfigProvider::class,
+    \Webinertia\Filter\ConfigProvider::class,
+    \Webinertia\Validator\ConfigProvider::class,
+    \Laminas\I18n\ConfigProvider::class,
+    \Laminas\Form\ConfigProvider::class,
+    \Laminas\InputFilter\ConfigProvider::class,
+    \Laminas\Filter\ConfigProvider::class,
+    \Laminas\Validator\ConfigProvider::class,
+    \Mezzio\Authorization\Acl\ConfigProvider::class,
+    \Mezzio\Authorization\ConfigProvider::class,
+    \Mezzio\Flash\ConfigProvider::class,
+    \Mezzio\Session\Ext\ConfigProvider::class,
+    \Mezzio\Authentication\Session\ConfigProvider::class,
+    \Mezzio\Session\ConfigProvider::class,
+    \Mezzio\Authentication\ConfigProvider::class,
     \UserManager\ConfigProvider::class,
     \Webinertia\Utils\ConfigProvider::class,
     \PageManager\ConfigProvider::class,

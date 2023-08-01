@@ -1,33 +1,46 @@
 <?php
+
+declare(strict_types=1);
+
+use UserManager\Authentication\CurrentUser;
+/**
+ * @var Laminas\View\Renderer\PhpRenderer $this
+ * @var CurrentUser $this->currentUser
+ * phpcs:ignoreFile
+ * these are the supported versions that are included in the distro, but we load them from cdn
+ * they are included in the package in case the developer (you) would like to modify them
+ * and to provide the expected directory tree
+ */
+$path = $this->url();
+if (isset($this->currentUser) && $this->currentUser instanceof CurrentUser) {
+    $role = $this->currentUser->getRoles()[0];
+} else {
+    $role = 'Guest';
+}
 $this->headLink()
-    ->prependStylesheet('https://use.fontawesome.com/releases/v5.13.0/css/all.css')
-    ->prependStylesheet('https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css');
+    ->appendStylesheet('/themes/default/assets/css/bootstrap.min.css')
+    ->appendStylesheet('https://use.fontawesome.com/releases/v5.13.0/css/all.css')
+    ->appendStylesheet('/themes/default/assets/css/style.css');
+
 $this->inlineScript()
-    ->prependFile('https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js')
-    ->prependFile('https://code.jquery.com/jquery-3.5.1.min.js');
+    ->appendFile('/themes/default/assets/js/bootstrap.min.js')
+    ->appendFile('/themes/default/assets/js/app.js');
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en" class="h-100" data-bs-theme="dark">
 <head>
+    <base href="/" />
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link rel="shortcut icon" href="https://getlaminas.org/images/favicon/favicon.ico" />
+    <link rel="shortcut icon" href="/themes/default/assets/img/favicon.ico" />
     <?=$this->headTitle('mezzio')->setSeparator(' - ')->setAutoEscape(false)?>
     <?=$this->headMeta()?>
     <?=$this->headLink()?>
-    <style>
-        body { padding-top: 70px; }
-        .app { min-height: 100vh; }
-        .app-footer { padding-bottom: 1em; }
-        .mezzio-green, h2 a, h2 a:hover { color: #009655; }
-        .navbar-brand { padding: 0; }
-        .navbar-brand img { margin: -.5rem 0; filter: brightness(0) invert(1); }
-    </style>
 </head>
-<body class="app">
+<body class="d-flex flex-column h-100 app">
     <header class="app-header">
-        <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top" role="navigation">
+        <nav class="navbar navbar-expand-sm fixed-top phpurple" role="navigation">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="#navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,25 +48,58 @@ $this->inlineScript()
                     </button>
                     <!-- Brand -->
                     <a class="navbar-brand" href="<?=$this->url('home')?>">
-                        <img src="https://docs.laminas.dev/img/laminas-mezzio-rgb.svg" alt="Laminas Mezzio" height="56" />
+                        <img src="/themes/default/assets/img/webinertia-logo-75.png" alt="Webinertia Mezzio" />
                     </a>
                 </div>
                 <!-- Links -->
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
+                            <a href="<?=$this->url('home')?>"
+                               class="nav-link<?=$this->url() === $this->url('home') ? ' active' : ''?>">
+                                <i class="fa fa-home"></i> Home
+                            </a>
+                        </li>
+                        <?php
+                        if ($role === 'Guest' || $role === 'guest') :
+                        ?>
+                        <li class="nav-item">
+                            <a href="<?=$this->url('user.login')?>"
+                               class="nav-link<?=$this->url() === $this->url('user.login') ? ' active' : ''?>">
+                                <i class="fa fa-user"></i> Login
+                            </a>
+                        </li>
+                        <?php
+                        else :
+                        ?>
+                        <li class="nav-item">
+                            <a href="<?=$this->url('user.profile', ['userName' => $this->currentUser->getIdentity()])?>"
+                            class="nav-link<?=$this->url() === $this->url('user.profile', ['userName' => $this->currentUser->getIdentity()]) ? ' active' : ''?>">
+                                <i class="fa fa-user-check"></i> Profile
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?=$this->url('user.logout')?>"
+                            class="nav-link<?=$this->url() === $this->url('user.logout') ? ' active' : ''?>">
+                                <i class="fa fa-user-slash"></i> Logout
+                            </a>
+                        </li>
+                        <?php
+                        endif;
+                        ?>
+                        <li class="nav-item">
                             <a href="https://docs.mezzio.dev/mezzio" target="_blank" class="nav-link">
                                 <i class="fa fa-book"></i> Docs
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="https://github.com/mezzio/mezzio" target="_blank" class="nav-link">
+                            <a href="https://github.com/webinertia/cms-mezzio" target="_blank" class="nav-link">
                                 <i class="fa fa-wrench"></i> Contribute
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="<?=$this->url('api.ping')?>" class="nav-link">
-                                Ping Test
+                                <i class="fa fa-network-wired"></i> Ping
                             </a>
                         </li>
                     </ul>
@@ -61,15 +107,13 @@ $this->inlineScript()
             </div>
         </nav>
     </header>
-
-    <div class="app-content">
-        <main class="container">
+    <main class="flex-shrink-0 app-content">
+        <section id="app-work-space" class="container p-5">
             Default
             <?=$this->content?>
-        </main>
-    </div>
-
-    <footer class="app-footer">
+        </section>
+    </main>
+    <footer class="mt-auto app-footer">
         <div class="container">
             <hr />
             <p>

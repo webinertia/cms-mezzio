@@ -25,7 +25,7 @@ class PageHandler implements RequestHandlerInterface
         $data = [];
 
         // debug message usage
-        $this->debug['messages']->addMessage(Debug::dump($request, 'testing debug messages', false, false));
+        //$this->debug['messages']->addMessage(Debug::dump($request, 'testing debug messages', false, false));
 
         return new HtmlResponse($this->template->render('page-manager::page', $data));
     }

@@ -37,11 +37,9 @@ class ConfigProvider
             'invokables' => [
                 ServerTimingMiddleware::class,
             ],
-            // 'aliases' => [
-            //     LaminasViewRenderer::class => Renderer::class,
-            // ],
             'factories'  => [
                 LaminasViewRenderer::class => RendererFactory::class,
+                Middleware\DefaultParamsMiddleware::class => Middleware\DefaultParamsMiddlewareFactory::class,
             ],
         ];
     }

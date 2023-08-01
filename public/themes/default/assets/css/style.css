@@ -1,0 +1,15 @@
+body {
+    padding-top: 70px;
+}
+.app {
+    min-height: 100vh;
+}
+.app-footer {
+    padding-bottom: 1em;
+}
+.phpurple {
+    background-color: #7a86b8;
+}
+.phpurple, h2 a, h2 a:hover {
+    color: #7a86b8;
+}
