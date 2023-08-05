@@ -77,6 +77,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // - etc.
     $app->pipe(UserManager\Middleware\IdentityMiddleware::class);
     $app->pipe(ThemeManager\Middleware\DefaultParamsMiddleware::class);
+    $app->pipe(\ThemeManager\Middleware\AjaxRequestMiddleware::class);
     // Register the dispatch middleware in the middleware pipeline
     $app->pipe(DispatchMiddleware::class);
 

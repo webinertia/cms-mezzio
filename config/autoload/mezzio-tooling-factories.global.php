@@ -7,15 +7,12 @@
  * removing factory definitions; other dependency types may be overwritten
  * when regenerating this file via mezzio-tooling commands.
  */
- 
+
 declare(strict_types=1);
 
 return [
     'dependencies' => [
         'factories' => [
-            ThemeManager\Middleware\DefaultParamsMiddleware::class => ThemeManager\Middleware\DefaultParamsMiddlewareFactory::class,
-            UserManager\Handler\LogoutHandler::class => UserManager\Handler\LogoutHandlerFactory::class,
-            UserManager\Middleware\IdentityMiddleware::class => UserManager\Middleware\IdentityMiddlewareFactory::class,
         ],
     ],
 ];

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace ThemeManager;
 
 use Mezzio\LaminasView\LaminasViewRenderer;
-use Tuupola\Middleware\ServerTimingMiddleware;
 
 /**
  * The configuration provider for the ThemeManager module
@@ -34,11 +33,9 @@ class ConfigProvider
     public function getDependencies() : array
     {
         return [
-            'invokables' => [
-                ServerTimingMiddleware::class,
-            ],
             'factories'  => [
-                LaminasViewRenderer::class => RendererFactory::class,
+                LaminasViewRenderer::class                => RendererFactory::class,
+                Middleware\AjaxRequestMiddleware::class   => Middleware\AjaxRequestMiddlewareFactory::class,
                 Middleware\DefaultParamsMiddleware::class => Middleware\DefaultParamsMiddlewareFactory::class,
             ],
         ];

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UserManager;
 
-use League\Tactician\Middleware;
 use Mezzio\Authentication\AuthenticationInterface;
 use Mezzio\Authentication\AuthenticationMiddleware;
 use Mezzio\Authentication\UserInterface;
@@ -12,6 +11,7 @@ use Mezzio\Authentication\Session\PhpSession;
 use Mezzio\Authentication\UserRepositoryInterface;
 use Mezzio\Session\SessionMiddleware;
 use UserManager\Form;
+use UserManager\Middleware;
 
 /**
  * The configuration provider for the UserManager module
