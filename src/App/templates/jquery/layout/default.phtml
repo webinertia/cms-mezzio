@@ -1,0 +1,127 @@
+<?php
+
+declare(strict_types=1);
+
+use UserManager\Authentication\CurrentUser;
+/**
+ * @var Laminas\View\Renderer\PhpRenderer $this
+ * @var CurrentUser $this->currentUser
+ * phpcs:ignoreFile
+ * these are the supported versions that are included in the distro, but we load them from cdn
+ * they are included in the package in case the developer (you) would like to modify them
+ * and to provide the expected directory tree
+ */
+$path = $this->url();
+if (isset($this->currentUser) && $this->currentUser instanceof CurrentUser) {
+    $role = $this->currentUser->getRoles()[0];
+} else {
+    $role = 'Guest';
+}
+$this->headLink()
+    ->appendStylesheet('/themes/default/assets/css/bootstrap.min.css')
+    ->appendStylesheet('https://use.fontawesome.com/releases/v5.13.0/css/all.css')
+    ->appendStylesheet('/themes/default/assets/css/style.css');
+
+$this->inlineScript()
+    ->appendFile('/themes/default/assets/js/bootstrap.min.js')
+    ->appendFile('/themes/default/assets/js/app.js');
+?>
+<!DOCTYPE html>
+<html lang="en" class="h-100" data-bs-theme="dark">
+<head>
+    <base href="/" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="shortcut icon" href="/themes/default/assets/img/favicon.ico" />
+    <?=$this->headTitle('mezzio')->setSeparator(' - ')->setAutoEscape(false)?>
+    <?=$this->headMeta()?>
+    <?=$this->headLink()?>
+</head>
+<body class="d-flex flex-column h-100 app">
+    <header class="app-header">
+        <nav class="navbar navbar-expand-sm fixed-top phpurple" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="#navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <!-- Brand -->
+                    <a class="navbar-brand" href="<?=$this->url('home')?>">
+                        <img src="/themes/default/assets/img/webinertia-logo-75.png" alt="Webinertia Mezzio" />
+                    </a>
+                </div>
+                <!-- Links -->
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a href="<?=$this->url('home')?>"
+                               class="nav-link<?=$this->url() === $this->url('home') ? ' active' : ''?>">
+                                <i class="fa fa-home"></i> Home
+                            </a>
+                        </li>
+                        <?php
+                        if ($role === 'Guest' || $role === 'guest') :
+                        ?>
+                        <li class="nav-item">
+                            <a href="<?=$this->url('user.login')?>"
+                               class="nav-link<?=$this->url() === $this->url('user.login') ? ' active' : ''?>">
+                                <i class="fa fa-user"></i> Login
+                            </a>
+                        </li>
+                        <?php
+                        else :
+                        ?>
+                        <li class="nav-item">
+                            <a href="<?=$this->url('user.profile', ['userName' => $this->currentUser->getIdentity()])?>"
+                            class="nav-link<?=$this->url() === $this->url('user.profile', ['userName' => $this->currentUser->getIdentity()]) ? ' active' : ''?>">
+                                <i class="fa fa-user-check"></i> Profile
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?=$this->url('user.logout')?>"
+                            class="nav-link<?=$this->url() === $this->url('user.logout') ? ' active' : ''?>">
+                                <i class="fa fa-user-slash"></i> Logout
+                            </a>
+                        </li>
+                        <?php
+                        endif;
+                        ?>
+                        <li class="nav-item">
+                            <a href="https://docs.mezzio.dev/mezzio" target="_blank" class="nav-link">
+                                <i class="fa fa-book"></i> Docs
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="https://github.com/webinertia/cms-mezzio" target="_blank" class="nav-link">
+                                <i class="fa fa-wrench"></i> Contribute
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?=$this->url('api.ping')?>" class="nav-link">
+                                <i class="fa fa-network-wired"></i> Ping
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="flex-shrink-0 app-content">
+        <section id="app-work-space" class="container p-5">
+            Jquery
+            <?=$this->content?>
+        </section>
+    </main>
+    <footer class="mt-auto app-footer">
+        <div class="container">
+            <hr />
+            <p>
+                &copy; <?=date('Y')?> <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
+            </p>
+        </div>
+    </footer>
+
+    <?=$this->inlineScript()?>
+</body>
+</html>

@@ -4,7 +4,7 @@ return [
         'themes' => [
             'default' => [
                 'id' => 1,
-                'active' => true,
+                'active' => false,
                 'name' => 'default',
                 'fallback' => 'default',
                 'resource_map' => [
@@ -21,6 +21,12 @@ return [
                 'id' => 2,
                 'active' => false,
                 'name' => 'dark',
+                'fallback' => 'default',
+            ],
+            'jquery' => [
+                'id' => 3,
+                'active' => true,
+                'name' => 'jquery',
                 'fallback' => 'default',
             ],
         ],
