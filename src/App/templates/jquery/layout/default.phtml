@@ -23,8 +23,9 @@ $this->headLink()
     ->appendStylesheet('/themes/default/assets/css/style.css');
 
 $this->inlineScript()
+    ->appendFile('https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.js')
     ->appendFile('/themes/default/assets/js/bootstrap.min.js')
-    ->appendFile('/themes/default/assets/js/app.js');
+    ->appendFile('/themes/jquery/assets/js/app.js');
 ?>
 <!DOCTYPE html>
 <html lang="en" class="h-100" data-bs-theme="dark">
@@ -121,7 +122,6 @@ $this->inlineScript()
             </p>
         </div>
     </footer>
-
     <?=$this->inlineScript()?>
 </body>
 </html>

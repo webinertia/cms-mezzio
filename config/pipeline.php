@@ -29,7 +29,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->pipe(ErrorHandler::class);
     // debug info
     if (! empty($container->get('config')['debug'])) {
-        $app->pipe(PhpDebugBarMiddleware::class);
+        //$app->pipe(PhpDebugBarMiddleware::class);
     }
     // default middleware
     $app->pipe(ServerUrlMiddleware::class);

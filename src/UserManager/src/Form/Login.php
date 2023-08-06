@@ -23,7 +23,7 @@ final class Login extends Form\Form implements InputFilterProviderInterface
 
     public function init(): void
     {
-
+            $this->setAttribute('action', '/user/login');
             $this->add([
                 'name' => 'userName',
                 'type' => Form\Element\Text::class,
