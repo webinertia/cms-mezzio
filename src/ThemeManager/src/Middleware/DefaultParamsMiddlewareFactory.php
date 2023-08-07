@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ThemeManager\Middleware;
 
-use Mezzio\Helper\ServerUrlHelper;
+use Mezzio\Helper\UrlHelper;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Container\ContainerInterface;
 
@@ -14,7 +14,7 @@ class DefaultParamsMiddlewareFactory
     {
         return new DefaultParamsMiddleware(
             $container->get(TemplateRendererInterface::class),
-            $container->get(ServerUrlHelper::class)
+            $container->get(UrlHelper::class)
         );
     }
 }
