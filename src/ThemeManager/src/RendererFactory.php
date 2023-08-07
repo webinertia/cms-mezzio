@@ -13,12 +13,14 @@ use Mezzio\LaminasView\Exception;
 use Mezzio\LaminasView\LaminasViewRenderer;
 use Mezzio\LaminasView\ServerUrlHelper;
 use Mezzio\LaminasView\UrlHelper;
-
 use Psr\Container\ContainerInterface;
 
 use function dirname;
+use function is_array;
 use function is_dir;
+use function is_numeric;
 use function realpath;
+use function sprintf;
 
 final class RendererFactory
 {
@@ -64,7 +66,7 @@ final class RendererFactory
                         && $theme['active']
                     ) {
                         $view->addPath($basePath . '/' . $theme['name'] . '/' . $namespace, $namespace);
-                    } elseif($theme['name'] !== 'default' && $theme['active']) {
+                    } elseif ($theme['name'] !== 'default' && $theme['active']) {
                         $view->addPath($basePath . '/default/' . $namespace);
                         $themePath = $basePath . '/' . $theme['name'] . '/' . $namespace;
                         if (is_dir($themePath)) {

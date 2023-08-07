@@ -15,17 +15,12 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class LogoutHandler implements RequestHandlerInterface
 {
-    /**
-     * @var TemplateRendererInterface
-     */
-    private $renderer;
-
-    public function __construct(TemplateRendererInterface $renderer)
-    {
-        $this->renderer = $renderer;
+    public function __construct(
+        private TemplateRendererInterface $renderer
+    ) {
     }
 
-    public function handle(ServerRequestInterface $request) : ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
         $session->clear();

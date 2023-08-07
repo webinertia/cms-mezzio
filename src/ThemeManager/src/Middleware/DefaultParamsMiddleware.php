@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace ThemeManager\Middleware;
 
+use Mezzio\Authentication\UserInterface;
+use Mezzio\Flash\FlashMessageMiddleware;
+use Mezzio\Helper\ServerUrlHelper;
+use Mezzio\Router\RouteResult;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Mezzio\Router\RouteResult;
-use Mezzio\Authentication\UserInterface;
-use Mezzio\Flash\FlashMessagesInterface;
-use Mezzio\Flash\FlashMessageMiddleware;
-use Mezzio\Helper\ServerUrlHelper;
 
 class DefaultParamsMiddleware implements MiddlewareInterface
 {
@@ -23,10 +22,8 @@ class DefaultParamsMiddleware implements MiddlewareInterface
     ) {
     }
 
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        //$session = $request->getAttribute('session');
-
         $this->template->addDefaultParam(
             TemplateRendererInterface::TEMPLATE_ALL,
             'currentUser',

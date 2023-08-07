@@ -14,10 +14,10 @@ use Mezzio\Router\Middleware\ImplicitOptionsMiddleware;
 use Mezzio\Router\Middleware\MethodNotAllowedMiddleware;
 use Mezzio\Router\Middleware\RouteMiddleware;
 use Mezzio\Session\SessionMiddleware;
-use PhpMiddleware\PhpDebugBar\PhpDebugBarMiddleware;
 use Psr\Container\ContainerInterface;
-
-use function Laminas\Stratigility\path;
+use ThemeManager\Middleware\AjaxRequestMiddleware;
+use ThemeManager\Middleware\DefaultParamsMiddleware;
+use UserManager\Middleware\IdentityMiddleware;
 
 /**
  * Setup middleware pipeline:
@@ -27,10 +27,6 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // The error handler should be the first (most outer) middleware to catch
     // all Exceptions.
     $app->pipe(ErrorHandler::class);
-    // debug info
-    if (! empty($container->get('config')['debug'])) {
-        //$app->pipe(PhpDebugBarMiddleware::class);
-    }
     // default middleware
     $app->pipe(ServerUrlMiddleware::class);
 
@@ -75,9 +71,9 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // - route-based authentication
     // - route-based validation
     // - etc.
-    $app->pipe(UserManager\Middleware\IdentityMiddleware::class);
-    $app->pipe(ThemeManager\Middleware\DefaultParamsMiddleware::class);
-    $app->pipe(\ThemeManager\Middleware\AjaxRequestMiddleware::class);
+    $app->pipe(IdentityMiddleware::class);
+    $app->pipe(DefaultParamsMiddleware::class);
+    $app->pipe(AjaxRequestMiddleware::class);
     // Register the dispatch middleware in the middleware pipeline
     $app->pipe(DispatchMiddleware::class);
 

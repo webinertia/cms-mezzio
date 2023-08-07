@@ -5,17 +5,19 @@ declare(strict_types=1);
 namespace UserManager\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
-use Laminas\Diactoros\Response\RedirectResponse; // add this line
+use Laminas\Diactoros\Response\RedirectResponse;
 use Laminas\Diactoros\Uri;
 use Mezzio\Authentication\AuthenticationInterface;
 use Mezzio\Authentication\UserInterface;
+use Mezzio\Session\SessionInterface;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use UserManager\Form\Login;
-use Mezzio\Session\SessionInterface;
+
+use function in_array;
 
 class LoginHandler implements MiddlewareInterface
 {
@@ -27,7 +29,7 @@ class LoginHandler implements MiddlewareInterface
     ) {
     }
 
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $session  = $request->getAttribute('session');
         $redirect = $this->getRedirect($request, $session);
@@ -51,7 +53,7 @@ class LoginHandler implements MiddlewareInterface
         ServerRequestInterface $request,
         SessionInterface $session,
         string $redirect
-    ) : ResponseInterface {
+    ): ResponseInterface {
         // User session takes precedence over user/pass POST in
         // the auth adapter so we remove the session prior
         // to auth attempt
@@ -73,7 +75,7 @@ class LoginHandler implements MiddlewareInterface
     private function getRedirect(
         ServerRequestInterface $request,
         SessionInterface $session
-    ) : string {
+    ): string {
         $redirect = $session->get(self::REDIRECT_ATTRIBUTE);
 
         if (! $redirect) {

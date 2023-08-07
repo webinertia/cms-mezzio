@@ -4,23 +4,23 @@ declare(strict_types=1);
 
 namespace UserManager\Middleware;
 
-use Mezzio\Authentication\AuthenticationInterface;
 use Mezzio\Authentication\UserInterface;
 use Mezzio\Session\SessionMiddleware;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use UserManager\Authentication\CurrentUserFactory;
 
 class IdentityMiddleware implements MiddlewareInterface
 {
+    /** @var callable $factory */
     private $factory;
     public function __construct(callable $factory)
     {
         $this->factory = $factory;
     }
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
+
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
         if (! $session->has(UserInterface::class)) {

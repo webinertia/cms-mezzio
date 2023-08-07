@@ -10,11 +10,11 @@ use Laminas\InputFilter\InputFilterProviderInterface;
 use Laminas\Validator;
 use Limatus\Form;
 
-use function strtolower;
-
 final class Login extends Form\Form implements InputFilterProviderInterface
 {
+    /** @inheritDoc */
     protected $attributes = ['class' => 'horizontal', 'method' => 'POST'];
+    /** @inheritDoc */
     public function __construct($name = 'horizontal', $options = ['mode' => self::HORIZONTAL_MODE, 'fieldset' => false])
     {
         $options = ['mode' => self::HORIZONTAL_MODE, 'fieldset' => false];
@@ -25,18 +25,18 @@ final class Login extends Form\Form implements InputFilterProviderInterface
     {
             $this->setAttribute('action', '/user/login');
             $this->add([
-                'name' => 'userName',
-                'type' => Form\Element\Text::class,
+                'name'       => 'userName',
+                'type'       => Form\Element\Text::class,
                 'attributes' => [
-                    'class' => 'form-control custom-class',
+                    'class'       => 'form-control custom-class',
                     'placeholder' => 'User Name',
                 ],
-                'options' => [
-                    'label' => 'User Name',
-                    'label_attributes'     => [
-                        'class' => 'col-sm-2 col-form-label'
+                'options'    => [
+                    'label'                 => 'User Name',
+                    'label_attributes'      => [
+                        'class' => 'col-sm-2 col-form-label',
                     ],
-                    'bootstrap_attributes' => [
+                    'bootstrap_attributes'  => [
                         'class' => 'row mb-3',
                     ],
                     'horizontal_attributes' => [
@@ -45,18 +45,18 @@ final class Login extends Form\Form implements InputFilterProviderInterface
                 ],
             ]);
             $this->add([
-                'name' => 'password',
-                'type' => Password::class,
+                'name'       => 'password',
+                'type'       => Password::class,
                 'attributes' => [
-                    'class' => 'form-control custom-class',
+                    'class'       => 'form-control custom-class',
                     'placeholder' => 'Password',
                 ],
-                'options' => [
-                    'label' => 'Password',
-                    'label_attributes'     => [
-                        'class' => 'col-sm-2 col-form-label'
+                'options'    => [
+                    'label'                 => 'Password',
+                    'label_attributes'      => [
+                        'class' => 'col-sm-2 col-form-label',
                     ],
-                    'bootstrap_attributes' => [
+                    'bootstrap_attributes'  => [
                         'class' => 'row mb-3',
                     ],
                     'horizontal_attributes' => [
@@ -69,10 +69,10 @@ final class Login extends Form\Form implements InputFilterProviderInterface
     public function getInputFilterSpecification(): array
     {
         $options = $this->getOptions();
-        $filter = [
+        $filter  = [
             'username' => [
-                'required' => true,
-                'filters'  => [
+                'required'   => true,
+                'filters'    => [
                     ['name' => Filter\StripTags::class],
                     ['name' => Filter\StringTrim::class],
                 ],

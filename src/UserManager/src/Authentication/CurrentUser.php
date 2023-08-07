@@ -66,4 +66,3 @@ final class CurrentUser implements UserInterface
         return $this->details[$name] ?? $default;
     }
 }
-

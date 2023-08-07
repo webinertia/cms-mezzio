@@ -9,7 +9,7 @@ use Psr\Container\ContainerInterface;
 
 class ProfileHandlerFactory
 {
-    public function __invoke(ContainerInterface $container) : ProfileHandler
+    public function __invoke(ContainerInterface $container): ProfileHandler
     {
         return new ProfileHandler($container->get(TemplateRendererInterface::class));
     }

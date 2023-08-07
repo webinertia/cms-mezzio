@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace UserManager\Form\Fieldset;
 
 use Laminas\Filter;
-use Laminas\Form\Element\Checkbox;
 use Laminas\InputFilter\InputFilterProviderInterface;
 use Laminas\Validator;
 use Limatus\Form;
 
 class LoginFieldset extends Form\Fieldset implements InputFilterProviderInterface
 {
+    /** @inheritDoc */
     public function __construct($name = 'horizontal-fieldset', $options = [])
     {
         parent::__construct($name = 'horizontal-fieldset', $options);
@@ -20,18 +20,18 @@ class LoginFieldset extends Form\Fieldset implements InputFilterProviderInterfac
     public function init(): void
     {
         $this->add([
-            'name' => 'username',
-            'type' => Form\Element\Text::class,
+            'name'       => 'username',
+            'type'       => Form\Element\Text::class,
             'attributes' => [
-                'class' => 'form-control custom-class',
+                'class'       => 'form-control custom-class',
                 'placeholder' => 'User Name',
             ],
-            'options' => [
-                'label' => 'User Name',
-                'label_attributes'     => [
-                    'class' => 'col-sm-2 col-form-label'
+            'options'    => [
+                'label'                 => 'User Name',
+                'label_attributes'      => [
+                    'class' => 'col-sm-2 col-form-label',
                 ],
-                'bootstrap_attributes' => [
+                'bootstrap_attributes'  => [
                     'class' => 'row mb-3',
                 ],
                 'horizontal_attributes' => [
@@ -40,18 +40,18 @@ class LoginFieldset extends Form\Fieldset implements InputFilterProviderInterfac
             ],
         ]);
         $this->add([
-            'name' => 'email',
-            'type' => Form\Element\Text::class,
+            'name'       => 'email',
+            'type'       => Form\Element\Text::class,
             'attributes' => [
-                'class' => 'form-control custom-class',
+                'class'       => 'form-control custom-class',
                 'placeholder' => 'Email',
             ],
-            'options' => [
-                'label' => 'Email',
-                'label_attributes'     => [
-                    'class' => 'col-sm-2 col-form-label'
+            'options'    => [
+                'label'                 => 'Email',
+                'label_attributes'      => [
+                    'class' => 'col-sm-2 col-form-label',
                 ],
-                'bootstrap_attributes' => [
+                'bootstrap_attributes'  => [
                     'class' => 'row mb-3',
                 ],
                 'horizontal_attributes' => [
@@ -102,10 +102,10 @@ class LoginFieldset extends Form\Fieldset implements InputFilterProviderInterfac
 
     public function getInputFilterSpecification(): array
     {
-        return[
+        return [
             'username' => [
-                'required' => true,
-                'filters'  => [
+                'required'   => true,
+                'filters'    => [
                     ['name' => Filter\StripTags::class],
                     ['name' => Filter\StringTrim::class],
                 ],

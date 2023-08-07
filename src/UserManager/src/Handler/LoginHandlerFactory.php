@@ -12,7 +12,7 @@ use UserManager\Form\Login;
 
 class LoginHandlerFactory
 {
-    public function __invoke(ContainerInterface $container) : LoginHandler
+    public function __invoke(ContainerInterface $container): LoginHandler
     {
         return new LoginHandler(
             $container->get(TemplateRendererInterface::class),

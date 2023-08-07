@@ -1,6 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 return [
-    'view_manager' => [
-        'doctype' => 'HTML5',
-    ],
+    'view_manager' => ['doctype' => 'HTML5'],
 ];

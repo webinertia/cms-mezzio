@@ -9,7 +9,7 @@ use Psr\Container\ContainerInterface;
 
 class AjaxRequestMiddlewareFactory
 {
-    public function __invoke(ContainerInterface $container) : AjaxRequestMiddleware
+    public function __invoke(ContainerInterface $container): AjaxRequestMiddleware
     {
         return new AjaxRequestMiddleware($container->get(TemplateRendererInterface::class));
     }

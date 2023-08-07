@@ -10,7 +10,7 @@ use Psr\Container\ContainerInterface;
 
 class DefaultParamsMiddlewareFactory
 {
-    public function __invoke(ContainerInterface $container) : DefaultParamsMiddleware
+    public function __invoke(ContainerInterface $container): DefaultParamsMiddleware
     {
         return new DefaultParamsMiddleware(
             $container->get(TemplateRendererInterface::class),

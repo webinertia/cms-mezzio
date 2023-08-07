@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace UserManager;
 
-use Laminas\Db\Sql\Select;
 use Laminas\Db\Sql\Where;
-use Mezzio\Authentication\DefaultUser;
 use Mezzio\Authentication\UserInterface;
 use Mezzio\Authentication\UserRepositoryInterface;
 use Webinertia\Db\TableGateway;
 
-use function array_intersect_key;
 use function array_flip;
+use function array_intersect_key;
 use function password_verify;
 
 final class UserRepository implements UserRepositoryInterface

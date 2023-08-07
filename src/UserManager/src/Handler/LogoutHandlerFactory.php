@@ -9,7 +9,7 @@ use Psr\Container\ContainerInterface;
 
 class LogoutHandlerFactory
 {
-    public function __invoke(ContainerInterface $container) : LogoutHandler
+    public function __invoke(ContainerInterface $container): LogoutHandler
     {
         return new LogoutHandler($container->get(TemplateRendererInterface::class));
     }

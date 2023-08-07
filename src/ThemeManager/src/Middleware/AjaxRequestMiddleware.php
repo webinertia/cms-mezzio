@@ -10,6 +10,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
+use function in_array;
+
 class AjaxRequestMiddleware implements MiddlewareInterface
 {
     public function __construct(
@@ -17,7 +19,7 @@ class AjaxRequestMiddleware implements MiddlewareInterface
     ) {
     }
 
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         if (! $request->hasHeader('X-Requested-With')) {
             // if we do not have this bail early
