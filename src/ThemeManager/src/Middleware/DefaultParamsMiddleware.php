@@ -6,7 +6,7 @@ namespace ThemeManager\Middleware;
 
 use Mezzio\Authentication\UserInterface;
 use Mezzio\Flash\FlashMessageMiddleware;
-use Mezzio\Helper\ServerUrlHelper;
+use Mezzio\Helper\UrlHelper;
 use Mezzio\Router\RouteResult;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -18,7 +18,7 @@ class DefaultParamsMiddleware implements MiddlewareInterface
 {
     public function __construct(
         private TemplateRendererInterface $template,
-        private ServerUrlHelper $uri
+        private UrlHelper $urlHelper
     ) {
     }
 
@@ -29,23 +29,35 @@ class DefaultParamsMiddleware implements MiddlewareInterface
             'currentUser',
             $request->getAttribute(UserInterface::class)
         );
-        $routeResult = $request->getAttribute(RouteResult::class);
+
+        $routeResult      = $this->urlHelper->getRouteResult();
+        $matchedRouteName = $routeResult->getMatchedRouteName();
+
         $this->template->addDefaultParam(
             TemplateRendererInterface::TEMPLATE_ALL,
             'matchedRouteName',
-            $routeResult ? $routeResult->getMatchedRouteName() : null
+            $matchedRouteName ?? null
         );
-        $this->template->addDefaultParam(
-            TemplateRendererInterface::TEMPLATE_ALL,
-            'currentUri',
-            $this->uri->generate()
-        );
+
+        if ($routeResult->isSuccess()) {
+            $this->template->addDefaultParam(
+                TemplateRendererInterface::TEMPLATE_ALL,
+                'currentUri',
+                $this->urlHelper->generate(
+                    $matchedRouteName,
+                    $routeResult->getMatchedParams(),
+                    $request->getQueryParams()
+                )
+            );
+        }
+
         $flashMessages = $request->getAttribute(FlashMessageMiddleware::FLASH_ATTRIBUTE);
         $this->template->addDefaultParam(
             TemplateRendererInterface::TEMPLATE_ALL,
             'systemMessages',
             $flashMessages ? $flashMessages->getFlashes() : []
         );
+
         return $handler->handle($request);
     }
 }
