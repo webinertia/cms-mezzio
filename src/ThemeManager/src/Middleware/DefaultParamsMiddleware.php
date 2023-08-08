@@ -7,7 +7,6 @@ namespace ThemeManager\Middleware;
 use Mezzio\Authentication\UserInterface;
 use Mezzio\Flash\FlashMessageMiddleware;
 use Mezzio\Helper\UrlHelper;
-use Mezzio\Router\RouteResult;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -42,7 +41,7 @@ class DefaultParamsMiddleware implements MiddlewareInterface
         if ($routeResult->isSuccess()) {
             $this->template->addDefaultParam(
                 TemplateRendererInterface::TEMPLATE_ALL,
-                'currentUri',
+                'url',
                 $this->urlHelper->generate(
                     $matchedRouteName,
                     $routeResult->getMatchedParams(),
