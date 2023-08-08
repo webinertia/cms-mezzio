@@ -56,6 +56,7 @@ class DefaultParamsMiddleware implements MiddlewareInterface
             'systemMessages',
             $flashMessages ? $flashMessages->getFlashes() : []
         );
+
         return $handler->handle($request);
     }
 }
