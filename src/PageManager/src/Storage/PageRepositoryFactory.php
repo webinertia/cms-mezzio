@@ -16,7 +16,6 @@ final class PageRepositoryFactory
     {
         $config = $container->get('config');
         return new PageRepository(
-            new ReflectionHydrator(),
             new TableGateway(
                 'page',
                 $container->get(AdapterInterface::class),
@@ -25,7 +24,8 @@ final class PageRepositoryFactory
                     new ReflectionHydrator(),
                     new PageEntity()
                 )
-            )
+            ),
+            new ReflectionHydrator(),
         );
     }
 }

@@ -12,8 +12,8 @@ use Webinertia\Db;
 final class PageRepository implements Db\RepositoryInterface, Db\RepositoryCommandInterface
 {
     public function __construct(
+        private Db\TableGateway $gateway,
         private ReflectionHydrator $hydrator = new ReflectionHydrator(),
-        private Db\TableGateway $gateway
     ) {
     }
 

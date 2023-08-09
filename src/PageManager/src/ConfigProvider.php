@@ -23,6 +23,7 @@ class ConfigProvider
             'dependencies' => $this->getDependencies(),
             'templates'    => $this->getTemplates(),
             'routes'       => $this->getRoutes(),
+            'tactician'    => $this->getTacticianConfig(),
         ];
     }
 
@@ -37,10 +38,14 @@ class ConfigProvider
                 Storage\PageRepository::class => Storage\PageRepositoryFactory::class,
                 Storage\SaveCommandHandler::class => Storage\SaveCommandHandlerFactory::class,
             ],
-            'tactician' => [
-                'handler-map' => [
-                    Storage\SaveCommand::class => Storage\SaveCommandHandler::class,
-                ],
+        ];
+    }
+
+    public function getTacticianConfig(): array
+    {
+        return [
+            'handler-map' => [
+                Storage\SaveCommand::class => Storage\SaveCommandHandler::class,
             ],
         ];
     }

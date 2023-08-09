@@ -8,14 +8,14 @@ use App\Tactician\CommandHandlerInterface;
 use App\Tactician\CommandInterface;
 use Webinertia\Db\EntityInterface;
 
-final class SaveCommandHandler implements CommandHandlerInterface
+final class SaveCommandHandler
 {
     public function __construct(
         private PageRepository $storage
     ) {
     }
 
-    public function execute(CommandInterface $command)
+    public function handle(CommandInterface $command)
     {
         return $this->storage->save($command->entity);
     }

@@ -6,6 +6,7 @@ namespace App;
 
 use Mezzio\Application;
 use Mezzio\Container\ApplicationConfigInjectionDelegator;
+use TacticianModule\Locator\ClassnameLaminasLocator;
 
 /**
  * The configuration provider for the App module
@@ -37,7 +38,8 @@ class ConfigProvider
         return [
             'invokables' => [
                 Handler\PingHandler::class        => Handler\PingHandler::class,
-                Tactician\ExecuteInflector::class => Tactician\ExecuteInflector::class,
+                //Tactician\ExecuteInflector::class => Tactician\ExecuteInflector::class,
+                ClassnameLaminasLocator::class => ClassnameLaminasLocator::class,
             ],
             'delegators' => [
                 Application::class => [
@@ -45,7 +47,7 @@ class ConfigProvider
                 ],
             ],
             'tactician' => [
-                'default-inflector' => Tactician\ExecuteInflector::class,
+                'default-locator' => ClassnameLaminasLocator::class,
             ],
         ];
     }
