@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PageManager\Handler;
 
 use DebugBar\DebugBar;
+use League\Tactician\CommandBus;
 use Mezzio\Router\RouterInterface;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Container\ContainerInterface;
@@ -26,6 +27,10 @@ class PageHandlerFactory
 
         $debug = $container->get(DebugBar::class);
 
-        return new PageHandler($template, $debug);
+        return new PageHandler(
+            $container->get(CommandBus::class),
+            $template,
+            $debug
+        );
     }
 }

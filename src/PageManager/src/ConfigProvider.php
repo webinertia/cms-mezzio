@@ -34,6 +34,13 @@ class ConfigProvider
         return [
             'factories' => [
                 Handler\PageHandler::class => Handler\PageHandlerFactory::class,
+                Storage\PageRepository::class => Storage\PageRepositoryFactory::class,
+                Storage\SaveCommandHandler::class => Storage\SaveCommandHandlerFactory::class,
+            ],
+            'tactician' => [
+                'handler-map' => [
+                    Storage\SaveCommand::class => Storage\SaveCommandHandler::class,
+                ],
             ],
         ];
     }

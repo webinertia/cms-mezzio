@@ -36,12 +36,16 @@ class ConfigProvider
     {
         return [
             'invokables' => [
-                Handler\PingHandler::class => Handler\PingHandler::class,
+                Handler\PingHandler::class        => Handler\PingHandler::class,
+                Tactician\ExecuteInflector::class => Tactician\ExecuteInflector::class,
             ],
             'delegators' => [
                 Application::class => [
                     ApplicationConfigInjectionDelegator::class,
                 ],
+            ],
+            'tactician' => [
+                'default-inflector' => Tactician\ExecuteInflector::class,
             ],
         ];
     }
