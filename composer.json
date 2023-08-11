@@ -52,6 +52,7 @@
         "laminas/laminas-hydrator": "^4.14",
         "laminas/laminas-servicemanager": "^3.4",
         "laminas/laminas-stdlib": "^3.6",
+        "league/tactician-command-events": "^0.6.0",
         "mezzio/mezzio": "3.17.0",
         "mezzio/mezzio-authentication": "^1.8",
         "mezzio/mezzio-authentication-session": "^1.8",
@@ -63,6 +64,7 @@
         "mezzio/mezzio-laminasviewrenderer": "^2.12",
         "mezzio/mezzio-session-ext": "^1.18",
         "mikemix/tactician-module": "^3.2",
+        "monolog/monolog": "^3.4",
         "webinertia/limatus": "^0.0.12",
         "webinertia/webinertia-db": "^0.0.6",
         "webinertia/webinertia-utils": "^0.0.10"
@@ -81,7 +83,8 @@
             "App\\": "src/App/src/",
             "ThemeManager\\": "src/ThemeManager/src/",
             "PageManager\\": "src/PageManager/src/",
-            "UserManager\\": "src/UserManager/src/"
+            "UserManager\\": "src/UserManager/src/",
+            "Log\\": "src/Log/src/"
         }
     },
     "autoload-dev": {

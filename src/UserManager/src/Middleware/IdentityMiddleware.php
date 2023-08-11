@@ -27,10 +27,11 @@ class IdentityMiddleware implements MiddlewareInterface
             return $handler->handle(
                 $request->withAttribute(
                     UserInterface::class,
-                    ($this->factory)('guest', ['Guest'], []) // the call the factory to create a guest
+                    ($this->factory)('guest', ['Guest'], []) // then call the factory to create a guest
                 )
             );
         }
+
         $user = $session->get(UserInterface::class);
         return $handler->handle(
             $request->withAttribute(
