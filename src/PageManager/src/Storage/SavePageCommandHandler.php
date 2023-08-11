@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace PageManager\Storage;
 
-use App\Tactician\CommandHandlerInterface;
-use App\Tactician\CommandInterface;
-use Webinertia\Db\EntityInterface;
+use App\CommandBus\CommandInterface;
 
-final class SaveCommandHandler
+final class SavePageCommandHandler
 {
     public function __construct(
         private PageRepository $storage

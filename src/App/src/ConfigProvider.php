@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App;
 
+use League\Tactician\CommandEvents\EventMiddleware;
+use League\Tactician\Plugins\NamedCommand\NamedCommandExtractor;
 use Mezzio\Application;
 use Mezzio\Container\ApplicationConfigInjectionDelegator;
 use TacticianModule\Locator\ClassnameLaminasLocator;
@@ -27,6 +29,7 @@ class ConfigProvider
             'dependencies' => $this->getDependencies(),
             'templates'    => $this->getTemplates(),
             'routes'       => $this->getRoutes(),
+            'tactician'    => $this->getTacticianConfig(),
         ];
     }
 
@@ -36,18 +39,28 @@ class ConfigProvider
     public function getDependencies(): array
     {
         return [
-            'invokables' => [
-                Handler\PingHandler::class        => Handler\PingHandler::class,
-                //Tactician\ExecuteInflector::class => Tactician\ExecuteInflector::class,
-                ClassnameLaminasLocator::class => ClassnameLaminasLocator::class,
-            ],
             'delegators' => [
                 Application::class => [
                     ApplicationConfigInjectionDelegator::class,
                 ],
             ],
-            'tactician' => [
-                'default-locator' => ClassnameLaminasLocator::class,
+            'factories' => [
+                EventMiddleware::class => CommandBus\EventMiddlewareFactory::class,
+            ],
+            'invokables' => [
+                Handler\PingHandler::class     => Handler\PingHandler::class,
+                NamedCommandExtractor::class   => NamedCommandExtractor::class,
+                ClassnameLaminasLocator::class => ClassnameLaminasLocator::class,
+            ],
+        ];
+    }
+
+    public function getTacticianConfig(): array
+    {
+        return [
+            'default-extractor'  => NamedCommandExtractor::class,
+            'middleware' => [
+                EventMiddleware::class => 50,
             ],
         ];
     }

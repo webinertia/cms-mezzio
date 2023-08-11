@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PageManager\Storage;
 
-use SebastianBergmann\Type\NullType;
 use Webinertia\Db;
 
 final class PageEntity implements Db\EntityInterface

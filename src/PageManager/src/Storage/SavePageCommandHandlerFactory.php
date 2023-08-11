@@ -6,11 +6,11 @@ namespace PageManager\Storage;
 
 use Psr\Container\ContainerInterface;
 
-final class SaveCommandHandlerFactory
+final class SavePageCommandHandlerFactory
 {
-    public function __invoke(ContainerInterface $container): SaveCommandHandler
+    public function __invoke(ContainerInterface $container): SavePageCommandHandler
     {
-        return new SaveCommandHandler(
+        return new SavePageCommandHandler(
             $container->get(PageRepository::class)
         );
     }

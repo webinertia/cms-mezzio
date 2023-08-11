@@ -33,10 +33,11 @@ class ConfigProvider
     public function getDependencies(): array
     {
         return [
+            'aliases' => [],
             'factories' => [
                 Handler\PageHandler::class => Handler\PageHandlerFactory::class,
                 Storage\PageRepository::class => Storage\PageRepositoryFactory::class,
-                Storage\SaveCommandHandler::class => Storage\SaveCommandHandlerFactory::class,
+                Storage\SavePageCommandHandler::class => Storage\SavePageCommandHandlerFactory::class,
             ],
         ];
     }
@@ -45,7 +46,7 @@ class ConfigProvider
     {
         return [
             'handler-map' => [
-                Storage\SaveCommand::class => Storage\SaveCommandHandler::class,
+                Storage\SavePageCommand::class => Storage\SavePageCommandHandler::class,
             ],
         ];
     }

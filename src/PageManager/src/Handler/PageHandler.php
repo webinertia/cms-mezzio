@@ -26,7 +26,7 @@ class PageHandler implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $page = new PageEntity(null, 'command created');
-        $this->commandBus->handle(new Storage\SaveCommand($page));
+        $this->commandBus->handle(new Storage\SavePageCommand($page));
 
         // debug message usage
         //$this->debug['messages']->addMessage(Debug::dump($request, 'testing debug messages', false, false));
