@@ -46,6 +46,8 @@ class ConfigProvider
             ],
             'factories' => [
                 EventMiddleware::class => CommandBus\EventMiddlewareFactory::class,
+                // debugbar override
+
             ],
             'invokables' => [
                 Handler\PingHandler::class     => Handler\PingHandler::class,
@@ -61,6 +63,15 @@ class ConfigProvider
             'default-extractor'  => NamedCommandExtractor::class,
             'middleware' => [
                 EventMiddleware::class => 50,
+            ],
+        ];
+    }
+
+    public function getDebugBarConfig(): array
+    {
+        return [
+            'phpmiddleware' => [
+
             ],
         ];
     }

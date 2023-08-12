@@ -17,20 +17,20 @@ final class EventMiddlewareFactory
     {
         // todo setup command logging.
         $logger = $container->get(LoggerInterface::class);
-        $debug  = $container->get(DebugBar::class);
+        //$debug  = $container->get(DebugBar::class);
         $events = new EventMiddleware();
         $events->addListener(
             'command.handled',
-            function (CommandHandled $event) use ($logger, $debug) {
+            function (CommandHandled $event) use ($logger) {
                 $command = $event->getCommand();
-                $debug['messages']->addMessage(Debug::dump($command->getCommandName(), 'command event', false, false));
+                //$debug['messages']->addMessage(Debug::dump($command->getCommandName(), 'command event', false, false));
             }
         );
         $events->addListener(
             'command.failed',
-            function (CommandHandled $event) use ($logger, $debug) {
+            function (CommandHandled $event) use ($logger) {
                 $command = $event->getCommand();
-                $debug['messages']->addMessage(Debug::dump($command->getCommandName(), 'command event', false, false));
+                //$debug['messages']->addMessage(Debug::dump($command->getCommandName(), 'command event', false, false));
             }
         );
         return $events;

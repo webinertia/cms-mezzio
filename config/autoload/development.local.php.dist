@@ -23,6 +23,11 @@ return [
             ErrorResponseGenerator::class => Container\WhoopsErrorResponseGeneratorFactory::class,
             'Mezzio\Whoops'               => Container\WhoopsFactory::class,
             'Mezzio\WhoopsPageHandler'    => Container\WhoopsPageHandlerFactory::class,
+            \DebugBar\DataCollector\ConfigCollector::class        => \App\DebugBar\ConfigCollectorFactory::class,
+            \PhpMiddleware\PhpDebugBar\PhpDebugBarMiddleware::class => \PhpMiddleware\PhpDebugBar\PhpDebugBarMiddlewareFactory::class,
+            \PhpMiddleware\PhpDebugBar\ConfigProvider::class => \PhpMiddleware\PhpDebugBar\ConfigProvider::class,
+            \DebugBar\DebugBar::class => \PhpMiddleware\PhpDebugBar\StandardDebugBarFactory::class,
+            \DebugBar\JavascriptRenderer::class => \PhpMiddleware\PhpDebugBar\JavascriptRendererFactory::class,
         ],
     ],
     'whoops'       => [
@@ -30,6 +35,25 @@ return [
             'display'    => true,
             'show_trace' => true,
             'ajax_only'  => true,
+        ],
+    ],
+    'middleware_pipeline' => [
+        \PhpMiddleware\PhpDebugBar\PhpDebugBarMiddleware::class => [
+            'middleware' => [
+                \PhpMiddleware\PhpDebugBar\PhpDebugBarMiddleware::class,
+            ],
+            'priority' => 2, // default from package is 1000
+        ],
+    ],
+    'phpmiddleware' => [
+        'phpdebugbar' => [
+            'javascript_renderer' => [
+                'base_url' => '/phpdebugbar',
+            ],
+            'collectors' => [
+                DebugBar\DataCollector\ConfigCollector::class,
+            ],
+            'storage' => null,
         ],
     ],
 ];

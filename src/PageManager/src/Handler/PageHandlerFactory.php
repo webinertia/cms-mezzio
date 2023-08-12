@@ -25,12 +25,12 @@ class PageHandlerFactory
             : null;
         assert($template instanceof TemplateRendererInterface || null === $template);
 
-        $debug = $container->get(DebugBar::class);
+        //$debug = $container->get(DebugBar::class);
 
         return new PageHandler(
             $container->get(CommandBus::class),
             $template,
-            $debug
+            //$debug
         );
     }
 }
