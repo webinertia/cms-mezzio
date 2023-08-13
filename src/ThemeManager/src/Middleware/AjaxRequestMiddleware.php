@@ -11,9 +11,11 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 use function in_array;
+use function str_contains;
 
 class AjaxRequestMiddleware implements MiddlewareInterface
 {
+    public const HTML_CONTENT_TYPE = 'text/html';
     public function __construct(
         private TemplateRendererInterface $template,
     ) {
@@ -27,6 +29,7 @@ class AjaxRequestMiddleware implements MiddlewareInterface
         }
 
         if (in_array('XMLHttpRequest', $request->getHeader('X-Requested-With'), true)) {
+            // for ajax do not render the layout again
             $this->template->addDefaultParam(
                 TemplateRendererInterface::TEMPLATE_ALL,
                 'layout',

@@ -11,7 +11,7 @@ use UserManager\Authentication\CurrentUser;
  * they are included in the package in case the developer (you) would like to modify them
  * and to provide the expected directory tree
  */
-$path = $this->url();
+//$path = $this->url();
 if (isset($this->currentUser) && $this->currentUser instanceof CurrentUser) {
     $role = $this->currentUser->getRoles()[0];
 } else {
@@ -110,7 +110,6 @@ $this->inlineScript()
     </header>
     <main class="flex-shrink-0 app-content">
         <section id="app-work-space" class="container p-5">
-            Jquery
             <?=$this->content?>
         </section>
     </main>

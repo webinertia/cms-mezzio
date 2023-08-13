@@ -29,12 +29,6 @@ return [
                 'name' => 'jquery',
                 'fallback' => 'default',
             ],
-            'sbhlaw' => [
-                'id' => 3,
-                'active' => true,
-                'name' => 'sbhlaw',
-                'fallback' => 'default',
-            ],
         ],
     ],
 ];
