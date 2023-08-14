@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Log;
 
-use Monolog\Logger;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -14,6 +13,7 @@ use Psr\Log\LoggerInterface;
  */
 class ConfigProvider
 {
+    public const TABLE_NAME = 'log';
     /**
      * Returns the configuration array
      *
@@ -25,6 +25,7 @@ class ConfigProvider
         return [
             'dependencies' => $this->getDependencies(),
             'templates'    => $this->getTemplates(),
+            'log'   => $this->getRepositoryConfig(),
         ];
     }
 
@@ -35,10 +36,19 @@ class ConfigProvider
     {
         return [
             'invokables' => [
+                Processor\RamseyUuidProcessor::class => Processor\RamseyUuidProcessor::class,
             ],
             'factories'  => [
-                LoggerInterface::class => LogFactory::class,
+                LoggerInterface::class   => LogFactory::class,
+                RepositoryHandler::class => RepositoryHandlerFactory::class,
             ],
+        ];
+    }
+
+    public function getRepositoryConfig(): array
+    {
+        return [
+            'table' => self::TABLE_NAME,
         ];
     }
 

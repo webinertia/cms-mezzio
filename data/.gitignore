@@ -5,6 +5,7 @@
 !app/.gitkeep
 !app/settings
 !app/settings/.gitkeep
+!app/settings/authorization.php
 !app/settings/themes.php
 !app/settings/page-manager.php
 !.gitignore

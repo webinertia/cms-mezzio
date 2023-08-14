@@ -64,9 +64,13 @@ $aggregator = new ConfigAggregator([
     //   - `*.global.php`
     //   - `local.php`
     //   - `*.local.php`
-    new PhpFileProvider(realpath(__DIR__) . '/autoload/{{,*.}global,{,*.}local}.php'),
-    // include the settings files from /data/app. They are stored here because they will be modified
+    /**
+     * include the settings files from /data/app. They are stored there because they will be modified
+     * loading in this order allows for any development mode settings to override them
+     * without having to change the base values
+     */
     new PhpFileProvider(realpath(__DIR__ . '/../') . '/data/app/settings/{,*}.php'),
+    new PhpFileProvider(realpath(__DIR__) . '/autoload/{{,*.}global,{,*.}local}.php'),
     // Load development config if it exists
     new PhpFileProvider(realpath(__DIR__) . '/development.config.php'),
 ], $cacheConfig['config_cache_path']);

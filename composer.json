@@ -65,6 +65,7 @@
         "mezzio/mezzio-session-ext": "^1.18",
         "mikemix/tactician-module": "^3.2",
         "monolog/monolog": "^3.4",
+        "ramsey/uuid": "^4.7",
         "webinertia/limatus": "^0.0.12",
         "webinertia/webinertia-db": "^0.0.6",
         "webinertia/webinertia-utils": "^0.0.10"

@@ -4,36 +4,46 @@ declare(strict_types=1);
 
 namespace App\CommandBus;
 
-use DebugBar\DebugBar;
 use League\Tactician\CommandEvents\EventMiddleware;
 use League\Tactician\CommandEvents\Event\CommandHandled;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Monolog\Logger;
-use Webinertia\Utils\Debug;
 
 final class EventMiddlewareFactory
 {
     public function __invoke(ContainerInterface $container): EventMiddleware
     {
+        /**
+         * This will most likely end up being moved to a listener class so that
+         * we end up with one listener class per channel
+         */
         /** @var Logger $logger */
         $logger = $container->get(LoggerInterface::class);
-        $logger = $logger->withName('monolog');
-        //$debug  = $container->get(DebugBar::class);
+        $logger = $logger->withName('command-bus'); // set the channel
         $events = new EventMiddleware();
         $events->addListener(
             'command.handled',
             function (CommandHandled $event) use ($logger) {
-                $command = $event->getCommand();
-                $logger->info('Handled {command} successfully.', ['command' => $command->getCommandName()]);
-                //$debug['messages']->addMessage(Debug::dump($command->getCommandName(), 'command event', false, false));
+                $logger->info(
+                    'Handled {command} successfully.', // success message
+                    [
+                        'command' => ($event->getCommand())->getCommandName(),
+                    ]
+                );
+                $logger->close();
             }
         );
         $events->addListener(
             'command.failed',
             function (CommandHandled $event) use ($logger) {
-                $command = $event->getCommand();
-                //$debug['messages']->addMessage(Debug::dump($command->getCommandName(), 'command event', false, false));
+                $logger->info(
+                    '{command} failed.', // failure message
+                    [
+                        'command' => ($event->getCommand())->getCommandName(),
+                    ]
+                );
+                $logger->close();
             }
         );
         return $events;
