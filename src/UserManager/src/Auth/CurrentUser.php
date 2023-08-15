@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UserManager\Authentication;
+namespace UserManager\Auth;
 
 use Mezzio\Authentication\UserInterface;
 

@@ -33,6 +33,7 @@ class ConfigProvider
             'authentication' => $this->getAuthConfig(),
             'routes'         => $this->getRoutes(),
             'form_elements'  => $this->getFormElementConfig(),
+            'tactician'      => $this->getCommandConfig(),
         ];
     }
 
@@ -47,13 +48,17 @@ class ConfigProvider
                 UserRepositoryInterface::class => UserRepository::class,
             ],
             'factories' => [
-                Authentication\CurrentUser::class    => Authentication\CurrentUserFactory::class,
+                Auth\LoginCommandHandler::class      => Auth\LoginCommandHandlerFactory::class,
+                Auth\CurrentUser::class              => Auth\CurrentUserFactory::class,
                 Handler\LoginHandler::class          => Handler\LoginHandlerFactory::class,
                 Handler\LogoutHandler::class         => Handler\LogoutHandlerFactory::class,
                 Handler\ProfileHandler::class        => Handler\ProfileHandlerFactory::class,
                 Middleware\IdentityMiddleware::class => Middleware\IdentityMiddlewareFactory::class,
                 UserRepository::class                => UserRepositoryFactory::class,
-                UserInterface::class                 => Authentication\CurrentUserFactory::class,
+                UserInterface::class                 => Auth\CurrentUserFactory::class,
+            ],
+            'invokables' => [
+                Auth\LogoutCommandHandler::class => Auth\LogoutCommandHandler::class,
             ],
         ];
     }
@@ -106,6 +111,16 @@ class ConfigProvider
             'factories' => [
                 Form\Login::class                  => Form\LoginFactory::class,
                 Form\Fieldset\LoginFieldset::class => Form\Fieldset\LoginFieldsetFactory::class,
+            ],
+        ];
+    }
+
+    public function getCommandConfig(): array
+    {
+        return [
+            'handler-map' => [
+                Auth\LoginCommand::class  => Auth\LoginCommandHandler::class,
+                Auth\LogoutCommand::class => Auth\LogoutCommandHandler::class,
             ],
         ];
     }

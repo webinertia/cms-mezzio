@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\CommandBus;
 
-use League\Tactician\CommandEvents\EventMiddleware;
+use League\Tactician\CommandEvents\Event\CommandFailed;
 use League\Tactician\CommandEvents\Event\CommandHandled;
+use League\Tactician\CommandEvents\EventMiddleware;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Monolog\Logger;
@@ -36,7 +37,7 @@ final class EventMiddlewareFactory
         );
         $events->addListener(
             'command.failed',
-            function (CommandHandled $event) use ($logger) {
+            function (CommandFailed $event) use ($logger) {
                 $logger->info(
                     '{command} failed.', // failure message
                     [

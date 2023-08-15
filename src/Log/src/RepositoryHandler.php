@@ -20,14 +20,15 @@ final class RepositoryHandler extends AbstractProcessingHandler
 
     protected function write(LogRecord $record): void
     {
-        $data = $record->toArray();
         $message = [
-            'channel' => $data['channel'],
-            'level'   => $data['level_name'],
-            'uuid'    => $data['extra']['uuid'] ?? null,
+            'channel' => $record['channel'],
+            'level'   => $record['level_name'],
+            'uuid'    => $record['extra']['uuid'] ?? null,
             'message' => $record->formatted,
             'time'    => $record->datetime->format('U'),
+            'userName' => $record['extra']['userName'] ?? null,
         ];
+        // todo wrap this in a try catch
         $result = $this->gateway->insert($message);
     }
 }

@@ -18,8 +18,7 @@ class PageHandler implements RequestHandlerInterface
 {
     public function __construct(
         private CommandBus $commandBus,
-        private ?TemplateRendererInterface $template = null,
-        private ?DebugBar $debug = null
+        private ?TemplateRendererInterface $template = null
     ) {
     }
 
@@ -27,7 +26,7 @@ class PageHandler implements RequestHandlerInterface
     {
         $page = new PageEntity(null, 'command created');
         //$this->test = $page;
-        $this->commandBus->handle(new Storage\SavePageCommand($page));
+       // $this->commandBus->handle(new Storage\SavePageCommand($page));
 
         // debug message usage
         $debug = $request->getAttribute(DebugBar::class);

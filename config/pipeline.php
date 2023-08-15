@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Log\MonologMiddleware;
 use Laminas\Stratigility\Middleware\ErrorHandler;
 use Mezzio\Application;
 use Mezzio\Handler\NotFoundHandler;
@@ -15,7 +16,6 @@ use Mezzio\Router\Middleware\MethodNotAllowedMiddleware;
 use Mezzio\Router\Middleware\RouteMiddleware;
 use Mezzio\Session\SessionMiddleware;
 use Psr\Container\ContainerInterface;
-use ThemeManager\Middleware\AjaxRequestMiddleware;
 use ThemeManager\Middleware\DefaultParamsMiddleware;
 use UserManager\Middleware\IdentityMiddleware;
 
@@ -72,8 +72,8 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // - route-based validation
     // - etc.
     $app->pipe(IdentityMiddleware::class);
+    $app->pipe(MonologMiddleware::class);
     $app->pipe(DefaultParamsMiddleware::class);
-    $app->pipe(AjaxRequestMiddleware::class);
     // Register the dispatch middleware in the middleware pipeline
     $app->pipe(DispatchMiddleware::class);
 

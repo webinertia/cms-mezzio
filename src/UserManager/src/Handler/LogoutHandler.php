@@ -6,16 +6,18 @@ namespace UserManager\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
-use Mezzio\Authentication\UserInterface;
+use League\Tactician\CommandBus;
 use Mezzio\Session\SessionMiddleware;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use UserManager\Auth\LogoutCommand;
 
 class LogoutHandler implements RequestHandlerInterface
 {
     public function __construct(
+        private CommandBus $commandBus,
         private TemplateRendererInterface $renderer
     ) {
     }
@@ -23,13 +25,13 @@ class LogoutHandler implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
-        $session->clear();
-        $session->regenerate();
-        if (! $session->has(UserInterface::class)) {
+        try {
+            $this->commandBus->handle(new LogoutCommand($session));
             return new RedirectResponse('/');
+        } catch (\Throwable $th) {
+            //throw $th;
         }
-        // Do some work...
-        // Render and return a response:
+        // maybe render on logout failure???
         return new HtmlResponse($this->renderer->render(
             'user-manager::logout',
             [] // parameters to pass to template

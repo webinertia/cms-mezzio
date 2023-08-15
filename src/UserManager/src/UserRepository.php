@@ -38,7 +38,7 @@ final class UserRepository implements UserRepositoryInterface
         } elseif (! password_verify($password, $user->password)) {
             return null;
         }
-        return new Authentication\CurrentUser(
+        return new Auth\CurrentUser(
             $user->userName,
             (array) $user->role,
             array_intersect_key($user->getArrayCopy(), array_flip($this->config['details']))

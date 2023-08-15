@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ThemeManager\Middleware;
 
+use DebugBar\DebugBar;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -25,7 +26,7 @@ class AjaxRequestMiddleware implements MiddlewareInterface
     {
         if (! $request->hasHeader('X-Requested-With')) {
             // if we do not have this bail early
-            return $handler->handle($request);
+            return $handler->handle($request->withAttribute('isAjax', false));
         }
 
         if (in_array('XMLHttpRequest', $request->getHeader('X-Requested-With'), true)) {
@@ -37,6 +38,6 @@ class AjaxRequestMiddleware implements MiddlewareInterface
             );
         }
 
-        return $handler->handle($request);
+        return $handler->handle($request->withAttribute('isAjax', true));
     }
 }
