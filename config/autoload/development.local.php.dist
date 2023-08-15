@@ -19,16 +19,16 @@ use Mezzio\Middleware\ErrorResponseGenerator;
 return [
     'dependencies' => [
         'factories' => [
-            \App\DebugBar\DebugBarMiddleware::class        => \App\DebugBar\DebugBarMiddlewareFactory::class,
-            \DebugBar\Bridge\MonologCollector::class       => \App\DebugBar\MonologCollectorFactory::class,
-            \DebugBar\DataCollector\ConfigCollector::class => \App\DebugBar\ConfigCollectorFactory::class,
-            \DebugBar\DebugBar::class                      => \PhpMiddleware\PhpDebugBar\StandardDebugBarFactory::class,
-            \DebugBar\JavascriptRenderer::class            => \PhpMiddleware\PhpDebugBar\JavascriptRendererFactory::class,
-            ErrorResponseGenerator::class                  => Container\WhoopsErrorResponseGeneratorFactory::class,
-            'Mezzio\Whoops'                                => Container\WhoopsFactory::class,
-            'Mezzio\WhoopsPageHandler'                     => Container\WhoopsPageHandlerFactory::class,
-            \PhpMiddleware\PhpDebugBar\PhpDebugBarMiddleware::class => \PhpMiddleware\PhpDebugBar\PhpDebugBarMiddlewareFactory::class,
-            \PhpMiddleware\PhpDebugBar\ConfigProvider::class        => \PhpMiddleware\PhpDebugBar\ConfigProvider::class,
+            \App\DebugBar\DebugBarMiddleware::class          => \App\DebugBar\DebugBarMiddlewareFactory::class,
+            \DebugBar\Bridge\MonologCollector::class         => \App\DebugBar\MonologCollectorFactory::class,
+            \DebugBar\DataCollector\ConfigCollector::class   => \App\DebugBar\ConfigCollectorFactory::class,
+            \DebugBar\DebugBar::class                        => \PhpMiddleware\PhpDebugBar\StandardDebugBarFactory::class,
+            \DebugBar\JavascriptRenderer::class              => \App\DebugBar\JavascriptRendererFactory::class,
+            ErrorResponseGenerator::class                    => Container\WhoopsErrorResponseGeneratorFactory::class,
+            'Mezzio\Whoops'                                  => Container\WhoopsFactory::class,
+            'Mezzio\WhoopsPageHandler'                       => Container\WhoopsPageHandlerFactory::class,
+            \App\DebugBar\PhpDebugBarMiddleware::class       => \App\DebugBar\PhpDebugBarMiddlewareFactory::class,
+            \PhpMiddleware\PhpDebugBar\ConfigProvider::class => \PhpMiddleware\PhpDebugBar\ConfigProvider::class,
         ],
         'delegators' => [
             \DebugBar\DebugBar::class => [
@@ -44,9 +44,9 @@ return [
         ],
     ],
     'middleware_pipeline' => [
-        \PhpMiddleware\PhpDebugBar\PhpDebugBarMiddleware::class => [
+        \App\DebugBar\PhpDebugBarMiddleware::class => [
             'middleware' => [
-                \PhpMiddleware\PhpDebugBar\PhpDebugBarMiddleware::class,
+                \App\DebugBar\PhpDebugBarMiddleware::class,
             ],
             'priority' => 2, // default from package is 1000
         ],
@@ -61,6 +61,8 @@ return [
         'phpdebugbar' => [
             'javascript_renderer' => [
                 'base_url' => '/phpdebugbar',
+                'ajax_handler_bind_to_jquery' => true,
+                'include_vendors' => 'css',
             ],
             'collectors' => [
                 \DebugBar\DataCollector\ConfigCollector::class,
