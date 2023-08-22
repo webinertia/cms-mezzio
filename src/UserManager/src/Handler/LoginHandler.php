@@ -9,6 +9,7 @@ use Laminas\Diactoros\Response\RedirectResponse;
 use Laminas\Diactoros\Uri;
 use League\Tactician\CommandBus;
 use Mezzio\Session\SessionInterface;
+use Mezzio\Session\LazySession;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -31,6 +32,7 @@ class LoginHandler implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        /** @var LazySession */
         $session  = $request->getAttribute('session');
         $redirect = $this->getRedirect($request, $session);
         // Handle submitted credentials
@@ -58,10 +60,12 @@ class LoginHandler implements MiddlewareInterface
         ServerRequestInterface $request,
         SessionInterface $session
     ): string {
+        /** @var string */
         $redirect = $session->get(self::REDIRECT_ATTRIBUTE);
 
         if (! $redirect) {
-            $redirect = (new Uri($request->getHeaderLine('Referer')))->getPath();
+            $uri = new Uri($request->getHeaderLine('Referer'));
+            $redirect = $uri->getPath();
             if (in_array($redirect, ['', '/user/login'], true)) {
                 $redirect = '/';
             }

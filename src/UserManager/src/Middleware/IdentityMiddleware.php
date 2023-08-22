@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace UserManager\Middleware;
 
 use Mezzio\Authentication\UserInterface;
+use Mezzio\Session\LazySession;
 use Mezzio\Session\SessionMiddleware;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -22,6 +23,7 @@ class IdentityMiddleware implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        /** @var LazySession */
         $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
         if (! $session->has(UserInterface::class)) {
             return $handler->handle(
@@ -31,7 +33,7 @@ class IdentityMiddleware implements MiddlewareInterface
                 )
             );
         }
-
+        /** @var array<string, string[]> */
         $user = $session->get(UserInterface::class);
         return $handler->handle(
             $request->withAttribute(

@@ -22,7 +22,7 @@ class PingHandlerTest extends TestCase
         $response    = $pingHandler->handle(
             $this->createMock(ServerRequestInterface::class)
         );
-
+        /** @var object */
         $json = json_decode((string) $response->getBody(), null, 512, JSON_THROW_ON_ERROR);
 
         self::assertInstanceOf(JsonResponse::class, $response);

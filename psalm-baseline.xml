@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="5.14.1@b9d355e0829c397b9b3b47d0c0ed042a8a70284d">
+  <file src="config/container.php">
+    <MixedArgument>
+      <code>$dependencies</code>
+    </MixedArgument>
+    <MixedArrayAccess>
+      <code><![CDATA[$dependencies['services']]]></code>
+    </MixedArrayAccess>
+    <MixedArrayAssignment>
+      <code><![CDATA[$dependencies['services']]]></code>
+      <code><![CDATA[$dependencies['services']['config']]]></code>
+    </MixedArrayAssignment>
+    <MixedAssignment>
+      <code>$dependencies</code>
+    </MixedAssignment>
+  </file>
+  <file src="config/pipeline.php">
+    <UnusedClosureParam>
+      <code>$container</code>
+      <code>$factory</code>
+    </UnusedClosureParam>
+  </file>
+  <file src="public/index.php">
+    <MixedArgument>
+      <code>$factory</code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code>$factory</code>
+    </MixedAssignment>
+    <PossiblyUndefinedArrayOffset>
+      <code><![CDATA[$_SERVER['SCRIPT_FILENAME']]]></code>
+    </PossiblyUndefinedArrayOffset>
+  </file>
+  <file src="src/App/src/DebugBar/PhpDebugBarMiddleware.php">
+    <ImplicitToStringCast>
+      <code><![CDATA[$response->getBody()]]></code>
+    </ImplicitToStringCast>
+    <MixedArgumentTypeCoercion>
+      <code><![CDATA[$response->getHeaders()]]></code>
+    </MixedArgumentTypeCoercion>
+    <MixedAssignment>
+      <code>$forceAttributeValue</code>
+      <code>$forceCookieValue</code>
+    </MixedAssignment>
+    <MixedInferredReturnType>
+      <code>Response</code>
+      <code>string</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement>
+      <code><![CDATA[($this->next)($request, $this->response)]]></code>
+    </MixedReturnStatement>
+    <UndefinedClass>
+      <code>SlimUri</code>
+    </UndefinedClass>
+  </file>
+</files>

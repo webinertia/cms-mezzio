@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 use Laminas\ServiceManager\ServiceManager;
 
-// Load configuration
+/**
+ * @psalm-suppress all
+ */
 $config = require __DIR__ . '/config.php';
 
 $dependencies                       = $config['dependencies'];

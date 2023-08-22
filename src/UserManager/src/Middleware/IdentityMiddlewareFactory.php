@@ -11,8 +11,10 @@ class IdentityMiddlewareFactory
 {
     public function __invoke(ContainerInterface $container): IdentityMiddleware
     {
+        /** @var callable */
+        $factory = $container->get(UserInterface::class);
         return new IdentityMiddleware(
-            $container->get(UserInterface::class)
+            $factory
         );
     }
 }

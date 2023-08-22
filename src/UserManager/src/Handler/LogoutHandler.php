@@ -7,6 +7,7 @@ namespace UserManager\Handler;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
 use League\Tactician\CommandBus;
+use Mezzio\Session\LazySession;
 use Mezzio\Session\SessionMiddleware;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -24,6 +25,7 @@ class LogoutHandler implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        /** @var LazySession */
         $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
         try {
             $this->commandBus->handle(new LogoutCommand($session));

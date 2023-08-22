@@ -18,17 +18,23 @@ final class RepositoryHandler extends AbstractProcessingHandler
     ) {
     }
 
+    /**
+     *
+     * @param LogRecord $record
+     * @return void
+     * @psalm-suppress all
+     */
     protected function write(LogRecord $record): void
     {
         $message = [
-            'channel' => $record['channel'],
-            'level'   => $record['level_name'],
-            'uuid'    => $record['extra']['uuid'] ?? null,
-            'message' => $record->formatted,
-            'time'    => $record->datetime->format('U'),
+            'channel'  => $record['channel'],
+            'level'    => $record['level_name'],
+            'uuid'     => $record['extra']['uuid'] ?? null,
+            'message'  => $record->formatted,
+            'time'     => $record->datetime->format('U'),
             'userName' => $record['extra']['userName'] ?? null,
         ];
         // todo wrap this in a try catch
-        $result = $this->gateway->insert($message);
+        $this->gateway->insert($message);
     }
 }

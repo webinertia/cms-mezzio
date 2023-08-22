@@ -7,6 +7,7 @@ namespace App\CommandBus;
 use League\Tactician\CommandEvents\Event\CommandFailed;
 use League\Tactician\CommandEvents\Event\CommandHandled;
 use League\Tactician\CommandEvents\EventMiddleware;
+use League\Tactician\Plugins\NamedCommand\NamedCommand;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Monolog\Logger;
@@ -26,10 +27,12 @@ final class EventMiddlewareFactory
         $events->addListener(
             'command.handled',
             function (CommandHandled $event) use ($logger) {
+                /** @var NamedCommand */
+                $handled = $event->getCommand();
                 $logger->info(
                     'Handled {command} successfully.', // success message
                     [
-                        'command' => ($event->getCommand())->getCommandName(),
+                        'command' => $handled->getCommandName(),
                     ]
                 );
                 $logger->close();
@@ -38,10 +41,12 @@ final class EventMiddlewareFactory
         $events->addListener(
             'command.failed',
             function (CommandFailed $event) use ($logger) {
+                /** @var NamedCommand */
+                $failed = $event->getCommand();
                 $logger->info(
                     '{command} failed.', // failure message
                     [
-                        'command' => ($event->getCommand())->getCommandName(),
+                        'command' => $failed->getCommandName(),
                     ]
                 );
                 $logger->close();

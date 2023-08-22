@@ -14,6 +14,7 @@ $cacheConfig = [
 ];
 
 $aggregator = new ConfigAggregator([
+    \Stdlib\ConfigProvider::class,
     \Log\ConfigProvider::class,
     \TacticianModule\ConfigProvider::class,
     \Limatus\ConfigProvider::class,

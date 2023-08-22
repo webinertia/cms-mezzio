@@ -6,6 +6,7 @@ namespace UserManager\Form;
 
 use Laminas\Filter;
 use Laminas\Form\Element\Password;
+use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\InputFilter\InputFilterProviderInterface;
 use Laminas\Validator;
 use Limatus\Form;
@@ -14,10 +15,15 @@ final class Login extends Form\Form implements InputFilterProviderInterface
 {
     /** @inheritDoc */
     protected $attributes = ['class' => 'horizontal', 'method' => 'POST'];
-    /** @inheritDoc */
-    public function __construct($name = 'horizontal', $options = ['mode' => self::HORIZONTAL_MODE, 'fieldset' => false])
+    /**
+     *
+     * @param string $name
+     * @param array $options
+     * @return void
+     * @throws InvalidArgumentException
+     */
+    public function __construct($name = 'horizontal', $options = [])
     {
-        $options = ['mode' => self::HORIZONTAL_MODE, 'fieldset' => false];
         parent::__construct($name, $options);
     }
 
@@ -68,8 +74,7 @@ final class Login extends Form\Form implements InputFilterProviderInterface
 
     public function getInputFilterSpecification(): array
     {
-        $options = $this->getOptions();
-        $filter  = [
+        return [
             'username' => [
                 'required'   => true,
                 'filters'    => [
@@ -88,10 +93,5 @@ final class Login extends Form\Form implements InputFilterProviderInterface
                 ],
             ],
         ];
-        if (! $options['fieldset']) {
-            return $filter;
-        } else {
-            return [];
-        }
     }
 }

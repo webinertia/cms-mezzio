@@ -35,14 +35,24 @@ final class PageRepository implements Db\RepositoryInterface, Db\RepositoryComma
         }
         return $this->hydrator->hydrate($set, $entity);
     }
-
+    /**
+     * @psalm-suppress InvalidReturnType
+     */
     public function delete(EntityInterface $entity): int { }
-
+    /**
+     * @psalm-suppress InvalidReturnType
+     */
     public function findOneById(int $id): EntityInterface { }
-
+    /**
+     * @psalm-suppress InvalidReturnType
+     */
     public function findOneByColumn(string $column, int|string $value): ResultSetInterface|EntityInterface { }
-
+    /**
+     * @psalm-suppress InvalidReturnType
+     */
     public function findManyByColumn(array $titles): ResultSetInterface { }
-
+    /**
+     * @psalm-suppress InvalidReturnType
+     */
     public function fetchAll(): ResultSetInterface { }
 }

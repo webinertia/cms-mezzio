@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PageManager\Storage;
 
-use App\CommandBus\CommandInterface;
+use Webinertia\Db\EntityInterface;
 
 final class SavePageCommandHandler
 {
@@ -13,7 +13,7 @@ final class SavePageCommandHandler
     ) {
     }
 
-    public function handle(CommandInterface $command)
+    public function handle(SavePageCommand $command): EntityInterface|int
     {
         return $this->storage->save($command->entity);
     }

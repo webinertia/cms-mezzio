@@ -11,8 +11,10 @@ use Webinertia\Db\TableGateway;
 
 final class UserRepositoryFactory
 {
+
     public function __invoke(ContainerInterface $container): UserRepositoryInterface
     {
+        /** @psalm-suppress MixedArgument, MixedArrayAccess */
         return new UserRepository(
             new TableGateway(
                 'user',

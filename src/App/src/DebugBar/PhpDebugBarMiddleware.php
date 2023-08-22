@@ -60,7 +60,7 @@ final class PhpDebugBarMiddleware implements MiddlewareInterface
         }
 
         $response = $handler->handle($request);
-
+        /** @var bool */
         $this->isAjax = $request->getAttribute('isAjax');
 
         if ($this->shouldReturnResponse($request, $response)) {

@@ -9,7 +9,12 @@ use Mezzio\Authentication\UserInterface;
 
 final class LogoutCommandHandler
 {
-    public function handle(CommandInterface $command)
+    /**
+     *
+     * @param LogoutCommand $command
+     * @return void
+     */
+    public function handle(LogoutCommand $command): void
     {
         $command->session->clear();
         $command->session->regenerate();

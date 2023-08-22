@@ -15,7 +15,7 @@ final class LoginCommandHandler
     ) {
     }
 
-    public function handle(CommandInterface $command)
+    public function handle(LoginCommand $command): ?UserInterface
     {
         // User session takes precedence over user/pass POST in
         // the auth adapter so we remove the session prior

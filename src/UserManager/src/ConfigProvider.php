@@ -109,8 +109,7 @@ class ConfigProvider
     {
         return [
             'factories' => [
-                Form\Login::class                  => Form\LoginFactory::class,
-                Form\Fieldset\LoginFieldset::class => Form\Fieldset\LoginFieldsetFactory::class,
+                Form\Login::class => Form\LoginFactory::class,
             ],
         ];
     }

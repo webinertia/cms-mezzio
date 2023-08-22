@@ -13,7 +13,10 @@ use Mezzio\LaminasView\Exception;
 use Mezzio\LaminasView\LaminasViewRenderer;
 use Mezzio\LaminasView\ServerUrlHelper;
 use Mezzio\LaminasView\UrlHelper;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
+use Webmozart\Assert\Assert;
 
 use function dirname;
 use function is_array;
@@ -26,10 +29,11 @@ final class RendererFactory
 {
     public function __invoke(ContainerInterface $container): LaminasViewRenderer
     {
+        /** @var array<string, string[]> */
         $config = $container->has('config') ? $container->get('config') : [];
-        $themes = isset($config['theme_manager']['themes']) && is_array($config['theme_manager']['themes'])
-            ? $config['theme_manager']['themes'] : [];
-
+        /** @var array<string, string[]> */
+        $themes = $config['theme_manager']['themes'] ?? [];
+        /** @var array<string, string[]> */
         $config = $config['templates'] ?? [];
 
         // Configuration
@@ -40,6 +44,7 @@ final class RendererFactory
         );
 
         // Create or retrieve the renderer from the container
+        /** @var PhpRenderer */
         $renderer = $container->has(PhpRenderer::class)
             ? $container->get(PhpRenderer::class)
             : ($container->has('Zend\View\Renderer\PhpRenderer')
@@ -49,16 +54,19 @@ final class RendererFactory
 
         // Inject helpers
         $this->injectHelpers($renderer, $container);
-
+        /** @var string */
         $defaultSuffix = $config['extension'] ?? $config['default_suffix'] ?? null;
         // Inject renderer
-        $view = new LaminasViewRenderer($renderer, $config['layout'] ?? null, $defaultSuffix);
+        /** @var string|null */
+        $layout = $config['layout'] ?? null;
+        $view = new LaminasViewRenderer($renderer, $layout, $defaultSuffix);
 
         // Add template paths
-        $allPaths = isset($config['paths']) && is_array($config['paths']) ? $config['paths'] : [];
+        /** @var array<string, string[]> */
+        $allPaths = isset($config['paths']) && $config['paths'] !== [] ? $config['paths'] : [];
         foreach ($allPaths as $namespace => $paths) {
-            $namespace = is_numeric($namespace) ? null : $namespace;
-            foreach ((array) $paths as $path) {
+            $namespace = is_numeric($namespace) ? '' : $namespace;
+            foreach ($paths as $path) {
                 $basePath = realpath(dirname($path));
                 foreach ($themes as $theme) {
                     if (
@@ -105,11 +113,14 @@ final class RendererFactory
                     BaseUrlHelper::class
                 ));
             }
-            return new UrlHelper(
-                $container->has(BaseUrlHelper::class)
-                    ? $container->get(BaseUrlHelper::class)
-                    : $container->get('Zend\Expressive\Helper\UrlHelper')
-            );
+            /** @var BaseUrlHelper */
+            $baseUrlHelper = $container->get(BaseUrlHelper::class);
+            return new UrlHelper($baseUrlHelper);
+            // return new UrlHelper(
+            //     $container->has(BaseUrlHelper::class)
+            //         ? $container->get(BaseUrlHelper::class)
+            //         : $container->get('Zend\Expressive\Helper\UrlHelper')
+            // );
         });
 
         $helpers->setAlias('serverurl', BaseServerUrlHelper::class);
@@ -125,24 +136,32 @@ final class RendererFactory
                     BaseServerUrlHelper::class
                 ));
             }
-            return new ServerUrlHelper(
-                $container->has(BaseServerUrlHelper::class)
-                    ? $container->get(BaseServerUrlHelper::class)
-                    : $container->get('Zend\Expressive\Helper\ServerUrlHelper')
-            );
+            /** @var BaseServerUrlHelper */
+            $baseUrlHelper = $container->has(BaseServerUrlHelper::class);
+            return new ServerUrlHelper($baseUrlHelper);
+            // return new ServerUrlHelper(
+            //     $container->has(BaseServerUrlHelper::class)
+            //         ? $container->get(BaseServerUrlHelper::class)
+            //         : $container->get('Zend\Expressive\Helper\ServerUrlHelper')
+            // );
         });
 
         $renderer->setHelperPluginManager($helpers);
     }
 
+    /**
+     *
+     * @param ContainerInterface $container
+     * @return HelperPluginManager
+     * @throws NotFoundExceptionInterface
+     * @throws ContainerExceptionInterface
+     */
     private function retrieveHelperManager(ContainerInterface $container): HelperPluginManager
     {
         if ($container->has(HelperPluginManager::class)) {
-            return $container->get(HelperPluginManager::class);
-        }
-
-        if ($container->has('Zend\View\HelperPluginManager')) {
-            return $container->get('Zend\View\HelperPluginManager');
+            /** @var HelperPluginManager */
+            $manager = $container->get(HelperPluginManager::class);
+            return $manager;
         }
 
         return new HelperPluginManager($container);

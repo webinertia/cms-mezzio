@@ -77,7 +77,9 @@
         "mezzio/mezzio-tooling": "^2.8",
         "php-middleware/php-debug-bar": "^4.2",
         "phpunit/phpunit": "^9.5.11",
-        "roave/security-advisories": "dev-master"
+        "psalm/plugin-phpunit": "^0.18.4",
+        "roave/security-advisories": "dev-master",
+        "vimeo/psalm": "^5.14"
     },
     "autoload": {
         "psr-4": {
@@ -85,7 +87,8 @@
             "ThemeManager\\": "src/ThemeManager/src/",
             "PageManager\\": "src/PageManager/src/",
             "UserManager\\": "src/UserManager/src/",
-            "Log\\": "src/Log/src/"
+            "Log\\": "src/Log/src/",
+            "Stdlib\\": "src/Stdlib/src/"
         }
     },
     "autoload-dev": {
@@ -113,6 +116,9 @@
             "Composer\\Config::disableProcessTimeout",
             "php -S 0.0.0.0:8080 -t public/"
         ],
+        "static-analysis": "psalm --shepherd --stats",
+        "update-baseline": "psalm --update-baseline",
+        "sa-no-baseline": "psalm --ignore-baseline",
         "test": "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
     }

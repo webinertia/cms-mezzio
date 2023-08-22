@@ -15,9 +15,13 @@ final class LogFactory
     public function __invoke(ContainerInterface $container): LoggerInterface
     {
         $logger = new Logger('app');
-        $logger->pushHandler($container->get(RepositoryHandler::class));
-        $logger->pushProcessor(new RamseyUuidProcessor());
-        $logger->pushProcessor(new PsrLogMessageProcessor(null, false));
+        /** @var RepositoryHandler */
+        $repoHandler = $container->get(RepositoryHandler::class);
+        $logger->pushHandler($repoHandler);
+        $processor = new RamseyUuidProcessor();
+        $logger->pushProcessor($processor);
+        $processor = new PsrLogMessageProcessor(null, false);
+        $logger->pushProcessor($processor);
         return $logger;
     }
 }
