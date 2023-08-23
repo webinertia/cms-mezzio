@@ -42,7 +42,7 @@ final class SavePageCommandHandlerTest extends TestCase
     public function testSavePageCommandHandlerHandlesCommand(): void
     {
         $commandBus = $this->container->get(CommandBus::class);
-        $entity     = new PageEntity($this->data);
+        $entity     = new PageEntity(...$this->data);
         $command    = new SavePageCommand($entity);
         $result     = $commandBus->handle($command);
         $this->assertInstanceOf(PageEntity::class, $result);
