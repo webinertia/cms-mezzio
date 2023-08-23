@@ -6,7 +6,6 @@ namespace PageManagerTest\Storage;
 
 use PageManager\Storage\PageEntity;
 use PageManager\Storage\SavePageCommand;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class SavePageCommandTest extends TestCase
