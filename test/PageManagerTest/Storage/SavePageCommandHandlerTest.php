@@ -2,6 +2,7 @@
 
 /**
  * Test Type: Integration
+ * todo: needs mocked componets as this test is kinda dirty
  */
 
 declare(strict_types=1);
