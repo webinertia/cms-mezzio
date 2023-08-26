@@ -11,7 +11,6 @@ namespace PageManagerTest\Storage;
 use League\Tactician\CommandBus;
 use PageManager\Storage\PageEntity;
 use PageManager\Storage\SavePageCommand;
-use Psr\Container\ContainerInterface;
 use Test\AbtractIntegrationTestCase;
 
 final class SavePageCommandHandlerTest extends AbtractIntegrationTestCase
