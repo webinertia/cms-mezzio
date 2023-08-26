@@ -11,15 +11,11 @@ namespace PageManagerTest\Storage;
 use League\Tactician\CommandBus;
 use PageManager\Storage\PageEntity;
 use PageManager\Storage\SavePageCommand;
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
+use Test\AbtractIntegrationTestCase;
 
-final class SavePageCommandHandlerTest extends TestCase
+final class SavePageCommandHandlerTest extends AbtractIntegrationTestCase
 {
-    /** @var ContainerInterface&MockObject */
-    protected $container;
-
     /** @var CommandBus */
     protected $commandBus;
 
@@ -31,12 +27,7 @@ final class SavePageCommandHandlerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->initContainer();
-    }
-
-    protected function initContainer(): void
-    {
-        $this->container = require __DIR__ . '/../../../config/container.php';
+        parent::setUp();
     }
 
     public function testSavePageCommandHandlerHandlesCommand(): void

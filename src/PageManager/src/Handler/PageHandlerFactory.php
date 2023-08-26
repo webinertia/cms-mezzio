@@ -16,9 +16,6 @@ class PageHandlerFactory
 {
     public function __invoke(ContainerInterface $container): RequestHandlerInterface
     {
-        $router = $container->get(RouterInterface::class);
-        assert($router instanceof RouterInterface);
-
         $template = $container->has(TemplateRendererInterface::class)
             ? $container->get(TemplateRendererInterface::class)
             : null;

@@ -9,7 +9,7 @@ use Laminas\Hydrator\ReflectionHydrator;
 use Webinertia\Db\EntityInterface;
 use Webinertia\Db;
 
-final class PageRepository implements Db\RepositoryInterface, Db\RepositoryCommandInterface
+class PageRepository implements Db\RepositoryInterface, Db\RepositoryCommandInterface
 {
     public function __construct(
         private Db\TableGateway $gateway,
@@ -31,7 +31,7 @@ final class PageRepository implements Db\RepositoryInterface, Db\RepositoryComma
             }
             $this->gateway->update($set, ['id' => $set['id']]);
         } catch (\Throwable $th) {
-            //throw $th;
+            // todo: add logging, throw exception
         }
         return $this->hydrator->hydrate($set, $entity);
     }

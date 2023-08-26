@@ -7,7 +7,7 @@ namespace PageManager\Storage;
 use Webinertia\Db;
 use Stdlib\Content\ContentInterface;
 
-final class PageEntity implements Db\EntityInterface, ContentInterface
+class PageEntity implements Db\EntityInterface, ContentInterface
 {
     public function __construct(
         private array|int|string|null $id = null,
