@@ -32,7 +32,9 @@ final class SavePageCommandHandlerTest extends AbtractIntegrationTestCase
 
     public function testSavePageCommandHandlerHandlesCommand(): void
     {
+        /** @var CommandBus */
         $commandBus = $this->container->get(CommandBus::class);
+        /** @psalm-suppress PossiblyInvalidArgument */
         $entity     = new PageEntity(...$this->data);
         $command    = new SavePageCommand($entity);
         $result     = $commandBus->handle($command);
