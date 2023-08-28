@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace PageManagerTest\Storage;
+namespace PageManagerTest\Storage\Integration;
 
-use Laminas\Db\Adapter\AdapterInterface;
 use PageManager\Storage\PageRepository;
 use PageManager\Storage\PageRepositoryFactory;
-use Test\AbtractIntegrationTestCase;
+use Test\Integration\AbstractTestCase;
 
-final class PageRepositoryFactoryTest extends AbtractIntegrationTestCase
+final class PageRepositoryFactoryTest extends AbstractTestCase
 {
     protected function setUp(): void
     {

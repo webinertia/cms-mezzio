@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace PageManagerTest\Storage;
+namespace PageManagerTest\Storage\Integration;
 
 use PageManager\Storage\SavePageCommandHandler;
 use PageManager\Storage\SavePageCommandHandlerFactory as Factory;
-use Test\AbtractIntegrationTestCase;
+use Test\Integration\AbstractTestCase;
 
-final class SavePageCommandHandlerFactoryTest extends AbtractIntegrationTestCase
+final class SavePageCommandHandlerFactoryTest extends AbstractTestCase
 {
     protected function setUp(): void
     {

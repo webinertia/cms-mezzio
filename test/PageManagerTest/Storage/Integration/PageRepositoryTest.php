@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace PageManagerTest\Storage;
+namespace PageManagerTest\Storage\Integration;
 
 use PageManager\Storage\PageEntity;
 use PageManager\Storage\PageRepository;
-use Test\AbtractIntegrationTestCase;
+use Test\Integration\AbstractTestCase;
 
-final class PageRepositoryTest extends AbtractIntegrationTestCase
+final class PageRepositoryTest extends AbstractTestCase
 {
     protected function setUp(): void
     {

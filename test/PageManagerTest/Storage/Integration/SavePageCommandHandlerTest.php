@@ -1,20 +1,15 @@
 <?php
 
-/**
- * Test Type: Integration
- * todo: needs mocked componets as this test is kinda dirty
- */
-
 declare(strict_types=1);
 
-namespace PageManagerTest\Storage;
+namespace PageManagerTest\Storage\Integration;
 
 use League\Tactician\CommandBus;
 use PageManager\Storage\PageEntity;
 use PageManager\Storage\SavePageCommand;
-use Test\AbtractIntegrationTestCase;
+use Test\Integration\AbstractTestCase;
 
-final class SavePageCommandHandlerTest extends AbtractIntegrationTestCase
+final class SavePageCommandHandlerTest extends AbstractTestCase
 {
     /** @var CommandBus */
     protected $commandBus;
