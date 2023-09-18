@@ -67,7 +67,7 @@
         "monolog/monolog": "^3.4",
         "ramsey/uuid": "^4.7",
         "webinertia/limatus": "^0.0.12",
-        "webinertia/webinertia-db": "^0.0.6",
+        "webinertia/webinertia-db": "^0.0.7",
         "webinertia/webinertia-utils": "^0.0.10"
     },
     "require-dev": {

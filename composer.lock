@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b2d1a637e229a622a950b56b883254db",
+    "content-hash": "64e9ed99cd5a5c255182153319da5d02",
     "packages": [
         {
             "name": "brick/math",
@@ -4149,16 +4149,16 @@
         },
         {
             "name": "webinertia/webinertia-db",
-            "version": "0.0.6",
+            "version": "0.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webinertia/webinertia-db.git",
-                "reference": "c16533f6996574aad3c7262330cca1e8b6bf4883"
+                "reference": "44f9ec12606975690dad61e99cd21c237a389779"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webinertia/webinertia-db/zipball/c16533f6996574aad3c7262330cca1e8b6bf4883",
-                "reference": "c16533f6996574aad3c7262330cca1e8b6bf4883",
+                "url": "https://api.github.com/repos/webinertia/webinertia-db/zipball/44f9ec12606975690dad61e99cd21c237a389779",
+                "reference": "44f9ec12606975690dad61e99cd21c237a389779",
                 "shasum": ""
             },
             "require": {
@@ -4207,10 +4207,10 @@
             "support": {
                 "forum": "https://github.com/webinertia/webinertia-db/discussions",
                 "issues": "https://github.com/webinertia/webinertia-db/issues",
-                "source": "https://github.com/webinertia/webinertia-db/tree/0.0.6",
+                "source": "https://github.com/webinertia/webinertia-db/tree/0.0.7",
                 "wiki": "https://github.com/webinertia/webinertia-db/wiki"
             },
-            "time": "2023-07-18T04:26:45+00:00"
+            "time": "2023-09-18T05:34:12+00:00"
         },
         {
             "name": "webinertia/webinertia-filter",
@@ -9781,5 +9781,5 @@
         "php": "~8.0.0 || ~8.1.0 || ~8.2.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
