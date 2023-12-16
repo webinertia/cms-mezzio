@@ -93,10 +93,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "AppTest\\": "test/AppTest/",
-            "PageManagerTest\\": "test/PagemManagerTest/",
-            "Test\\": "test/Test/",
-            "UserManagerTest\\": "test/UserManagerTest/"
+            "AppTest\\": "test/AppTest/"
         }
     },
     "scripts": {
